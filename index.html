@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIO SLIDES | 50 Aulas de Biologia Prontas para Professores</title>
+    <meta name="description" content="50 apresentações de Biologia prontas para você aplicar em sala, editar e projetar. Para professores do ensino médio, pré-ENEM, concursos e faculdade.">
+
+    <!-- Google Fonts: Inter para modernidade e legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configuração de Cores Customizadas no Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        bio: {
+                            900: '#0B3B2E', // Verde floresta profundo
+                            800: '#115443', // Verde intermediário
+                            700: '#17705A', // Verde para bordas/hover
+                            100: '#DDF4EA', // Verde bem claro para fundos
+                            50:  '#F2FBF7', // Verde quase branco (fundo de seção)
+                        },
+                        brand: {
+                            500: '#F97316', // Laranja (chamada para ação)
+                            600: '#C2410C', // Laranja escuro (hover / texto)
+                            50:  '#FFF7ED', // Fundo alaranjado bem claro
+                            100: '#FFEDD5', // Fundo alaranjado claro
+                            200: '#FED7AA', // Borda alaranjada
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- UTMify -->
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-xcod-sck
+      data-utmify-prevent-subids
+      data-utmify-ignore-iframe
+      async
+      defer
+    ></script>
+    <!-- End UTMify -->
+
+    <!-- Meta Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {
+      if(f.fbq)return;
+
+      n=f.fbq=function(){
+        n.callMethod
+          ? n.callMethod.apply(n,arguments)
+          : n.queue.push(arguments);
+      };
+
+      if(!f._fbq)f._fbq=n;
+
+      n.push=n;
+      n.loaded=!0;
+      n.version='2.0';
+      n.queue=[];
+
+      t=b.createElement(e);
+      t.async=!0;
+      t.src=v;
+
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s);
+
+    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '352488377782448');
+
+    /* Registra o carregamento da página */
+    fbq('track', 'PageView');
+
+    /* Registra a visualização da oferta, sem catálogo */
+    fbq('track', 'ViewContent', {
+      content_name: 'BIO SLIDES — 50 Aulas de Biologia Prontas',
+      content_category: 'Material para Professores de Biologia'
+    });
+    </script>
+    <!-- End Meta Pixel -->
+
+    <!-- OpenAI Pixel -->
+    <script>
+    !function(w,d,s,u){
+      if(w.oaiq)return;
+
+      var q=function(){
+        q.q.push(arguments);
+      };
+
+      q.q=[];
+      w.oaiq=q;
+
+      var j=d.createElement(s);
+      j.async=1;
+      j.src=u;
+
+      var f=d.getElementsByTagName(s)[0];
+      f.parentNode.insertBefore(j,f);
+
+    }(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+
+    oaiq("init",{
+      pixelId:"3HCeA9rpHbt6QScsDvWBJD",
+      debug:true
+    });
+
+    /* Registra a visualização da página na OpenAI */
+    oaiq("measure","page_viewed",{
+      type:"contents",
+      contents:[
+        {
+          id:window.location.pathname || "/",
+          name:document.title || "Página do site",
+          content_type:"page"
+        }
+      ]
+    });
+    </script>
+    <!-- End OpenAI Pixel -->
+
+    <style>
+        /* Ajustes finos adicionais da Landing Page */
+        .hero-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #ecfdf5 100%);
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- ANIMAÇÃO BOTÃO PULSANTE --- */
+        @keyframes btnPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.45); }
+            70% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(249, 115, 22, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+        }
+        .btn-pulse {
+            animation: btnPulse 2s infinite;
+        }
+
+        /* ================= MOCKUP DO PROJETOR / APRESENTAÇÃO ================= */
+        .tela {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #0B3B2E;
+        }
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 7% 8%;
+            color: #fff;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(8%);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .slide.ativo {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .slide.saindo {
+            opacity: 0;
+            transform: translateX(-8%);
+        }
+        .slide .emoji {
+            position: absolute;
+            right: 6%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: clamp(56px, 14vw, 120px);
+            line-height: 1;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,.25));
+        }
+        .slide .num {
+            font-size: clamp(10px, 2.4vw, 14px);
+            font-weight: 800;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            opacity: .85;
+        }
+        .slide .titulo {
+            font-size: clamp(22px, 6vw, 44px);
+            font-weight: 900;
+            line-height: 1.02;
+            letter-spacing: -.02em;
+            max-width: 70%;
+        }
+        .slide .sub {
+            font-size: clamp(11px, 2.6vw, 15px);
+            font-weight: 600;
+            opacity: .9;
+            max-width: 62%;
+            margin-top: .5em;
+        }
+        .slide .rodape {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: clamp(9px, 2vw, 12px);
+            font-weight: 700;
+            opacity: .8;
+        }
+        .slide .rodape span {
+            background: rgba(255,255,255,.18);
+            border-radius: 999px;
+            padding: 3px 9px;
+        }
+
+        /* Cursor que "clica" para avançar o slide */
+        .cursor {
+            position: absolute;
+            right: 7%;
+            bottom: 9%;
+            width: 26px;
+            height: 26px;
+            z-index: 5;
+            pointer-events: none;
+            transition: transform .15s ease;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,.4));
+        }
+        .cursor.clique {
+            transform: scale(.78);
+        }
+        .cursor .onda {
+            position: absolute;
+            left: -9px;
+            top: -9px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            opacity: 0;
+        }
+        .cursor.clique .onda {
+            animation: onda .5s ease-out;
+        }
+        @keyframes onda {
+            from { opacity: .9; transform: scale(.3); }
+            to   { opacity: 0;  transform: scale(1.6); }
+        }
+
+        .miniatura {
+            transition: all .3s ease;
+        }
+        .miniatura.ativa {
+            border-color: #F97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, .25);
+            transform: translateY(-2px);
+        }
+
+        /* Order bump selecionado */
+        .bump input:checked + .bump-caixa {
+            border-color: #F97316;
+            background: #FFF7ED;
+        }
+        .bump input:focus-visible + .bump-caixa {
+            outline: 2px solid #F97316;
+            outline-offset: 2px;
+        }
+
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] .seta { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-slate-50">
+
+    <!-- FAIXA DE URGÊNCIA (CRONÔMETRO) STICKY E FINA -->
+    <div class="bg-bio-900 text-white py-1.5 px-2 text-center z-[99] sticky top-0 w-full shadow-md">
+        <p class="text-[11px] sm:text-sm font-bold flex justify-center items-center gap-2 m-0">
+            <span class="hidden sm:inline">🧬 PREÇO DE LANÇAMENTO: 50 aulas de Biologia prontas por R$ 12,90</span>
+            <span class="sm:hidden">🧬 50 aulas prontas por R$ 12,90</span>
+            <span class="bg-brand-500 px-2 py-0.5 rounded text-xs sm:text-base tracking-widest font-mono shadow-inner" id="countdown-timer">15:00</span>
+        </p>
+    </div>
+
+    <!-- 1. HERO SECTION -->
+    <header class="hero-gradient text-bio-900 relative overflow-hidden">
+        <!-- Elementos de fundo decorativos -->
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+
+        <div class="container mx-auto px-5 sm:px-6 py-6 sm:py-16 lg:py-20 relative z-10 flex flex-col lg:flex-row items-center gap-10 lg:gap-12">
+
+            <!-- Texto e oferta -->
+            <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
+
+                <span class="inline-flex items-center gap-2 bg-white border border-bio-100 text-bio-800 text-[11px] sm:text-xs font-extrabold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-sm mb-4">
+                    <i data-lucide="presentation" class="w-4 h-4 text-brand-600"></i> Para professores de Biologia
+                </span>
+
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
+                    Professor, quanto tempo você perde <span class="text-brand-600">preparando seus slides?</span>
+                </h1>
+
+                <p class="text-lg lg:text-xl text-gray-700 mb-6 leading-relaxed">
+                    <strong class="text-bio-900">50 apresentações de Biologia prontas</strong> para você aplicar em sala, editar e projetar. Abra, ajuste do seu jeito e dê a aula de amanhã sem virar a noite.
+                </p>
+
+                <!-- VÍDEO DA PRIMEIRA DOBRA (mobile: logo abaixo do título) -->
+                <div class="w-full max-w-[520px] mx-auto lg:hidden mb-6" data-hero-slot="mobile"></div>
+
+                <!-- BLOCO PROMOCIONAL (CUPOM) -->
+                <div class="w-full max-w-[400px] bg-brand-50 rounded-xl sm:rounded-2xl border border-brand-200 overflow-hidden shadow-2xl mb-6 relative z-20 mx-auto lg:mx-0">
+                    <div class="flex items-stretch border-b border-dashed border-brand-200 bg-brand-100">
+                        <div class="p-3 sm:p-4 sm:pl-6 flex-1 flex flex-col justify-center text-left">
+                            <span class="text-brand-600 text-[9px] sm:text-xs font-extrabold tracking-widest uppercase mb-0.5 sm:mb-1">Preço de lançamento</span>
+                            <h3 class="text-bio-900 font-black text-xs sm:text-base leading-tight uppercase">50 aulas por só R$ 0,26 cada</h3>
+                        </div>
+                        <div class="bg-brand-500 text-white w-20 sm:w-28 flex flex-col justify-center items-center font-extrabold border-l-2 border-dashed border-brand-200 relative">
+                            <div class="absolute -left-1.5 sm:-left-2 top-[-6px] sm:top-[-8px] w-3 h-3 sm:w-4 sm:h-4 bg-brand-50 rounded-full"></div>
+                            <div class="absolute -left-1.5 sm:-left-2 bottom-[-6px] sm:bottom-[-8px] w-3 h-3 sm:w-4 sm:h-4 bg-brand-50 rounded-full"></div>
+
+                            <span class="text-2xl sm:text-4xl leading-none tracking-tighter">50</span>
+                            <span class="text-[9px] sm:text-xs uppercase tracking-widest mt-0.5 sm:mt-1 font-black">aulas</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 pt-5 sm:p-6 sm:pt-8 text-center relative flex flex-col items-center bg-white/50">
+                        <div class="bg-white border border-brand-500 text-brand-600 px-3 py-1 sm:px-5 sm:py-1.5 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider absolute -top-3 sm:-top-4 shadow-lg z-10 whitespace-nowrap">
+                            BIO SLIDES 2026
+                        </div>
+
+                        <p class="text-gray-600 text-[10px] sm:text-xs font-semibold uppercase tracking-widest mt-1">Leve hoje por apenas</p>
+                        <div class="flex items-start justify-center text-bio-900 mt-1 sm:mt-2 mb-1 sm:mb-2">
+                            <span class="text-xl sm:text-3xl font-bold mt-1 sm:mt-2 mr-1">R$</span>
+                            <span class="text-5xl sm:text-7xl font-extrabold tracking-tighter text-bio-900">12,90</span>
+                        </div>
+
+                        <div class="w-full h-px bg-gradient-to-r from-transparent via-brand-200 to-transparent my-2 sm:my-4"></div>
+
+                        <p class="text-brand-600 font-bold text-xs sm:text-[15px]">
+                            Oferta válida somente hoje: <span id="data-atual"></span>
+                        </p>
+                        <p class="text-green-600 font-extrabold text-xs sm:text-[15px] mt-1 sm:mt-2 flex items-center justify-center gap-1.5 uppercase tracking-wide">
+                            <i data-lucide="zap" class="w-4 h-4"></i> Acesso imediato via PIX
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full flex flex-col items-center lg:items-start mb-6 z-20">
+                    <a href="#planos" class="btn-pulse w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white text-lg sm:text-xl font-bold py-4 px-10 rounded-full text-center uppercase tracking-wider block">
+                        Quero as 50 aulas prontas
+                    </a>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mt-4 text-xs sm:text-sm font-semibold text-bio-900">
+                        <div class="flex items-center gap-1.5 bg-white border border-bio-100 px-3 py-1.5 rounded-md shadow-sm">
+                            <i data-lucide="presentation" class="w-4 h-4 text-bio-700"></i>
+                            <span>50 aulas prontas</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 bg-white border border-bio-100 px-3 py-1.5 rounded-md shadow-sm">
+                            <i data-lucide="pencil" class="w-4 h-4 text-bio-700"></i>
+                            <span>100% editáveis</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 bg-white border border-bio-100 px-3 py-1.5 rounded-md shadow-sm">
+                            <i data-lucide="layers" class="w-4 h-4 text-bio-700"></i>
+                            <span>10 áreas da Biologia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-md font-semibold text-bio-900 mb-6 bg-white p-4 rounded-lg border-l-4 border-brand-500 shadow-sm text-left">
+                    🔬 Para quem dá aula no ensino médio, no pré-ENEM, em preparatórios para concursos ou precisa apresentar na faculdade.
+                </p>
+
+                <div class="flex items-center justify-center lg:justify-start gap-4 text-sm text-gray-600">
+                    <div class="flex items-center gap-1"><i data-lucide="shield-check" class="w-4 h-4 text-bio-700"></i> Compra segura</div>
+                    <div class="flex items-center gap-1"><i data-lucide="zap" class="w-4 h-4 text-bio-700"></i> Acesso imediato</div>
+                </div>
+            </div>
+
+            <!-- MOCKUP DIREITA (desktop) -->
+            <div class="w-full lg:w-1/2 relative hidden lg:flex flex-col items-center justify-center z-10">
+                <div class="text-center mb-6 w-full">
+                    <h2 class="text-3xl lg:text-4xl font-black text-bio-900 leading-tight">
+                        Clique, projete, <span class="text-brand-600">dê a aula.</span>
+                    </h2>
+                    <p class="text-lg text-gray-700 mt-1 uppercase tracking-widest font-bold">Pronto para usar amanhã</p>
+                </div>
+                <!-- VÍDEO DA PRIMEIRA DOBRA (desktop) -->
+                <div class="w-full max-w-[560px]" data-hero-slot="desktop"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PLAYER DO VÍDEO DA PRIMEIRA DOBRA -->
+    <template id="modelo-video">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/10 bg-bio-900">
+            <video class="js-video block w-full aspect-video object-cover" autoplay muted loop playsinline preload="metadata"></video>
+            <button type="button" class="js-som absolute inset-0 flex items-end justify-center pb-4 bg-gradient-to-t from-black/50 via-transparent to-transparent">
+                <span class="inline-flex items-center gap-2 bg-brand-500 text-white text-sm font-extrabold uppercase tracking-wide px-4 py-2 rounded-full shadow-lg">
+                    <i data-lucide="volume-2" class="w-4 h-4"></i> Toque para ouvir
+                </span>
+            </button>
+        </div>
+    </template>
+
+    <!-- PLAYER DE VÍDEO EMBUTIDO (YouTube / Vimeo / outros) -->
+    <template id="modelo-embed">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/10 bg-bio-900 aspect-video">
+            <iframe class="js-embed absolute inset-0 w-full h-full" title="Vídeo do BIO SLIDES" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
+        </div>
+    </template>
+
+    <!-- MOCKUP ANIMADO: aparece enquanto o vídeo não for publicado -->
+    <template id="modelo-mockup">
+        <div class="floating">
+            <!-- Moldura do notebook -->
+            <div class="bg-gray-900 rounded-2xl p-2 sm:p-3 shadow-2xl ring-1 ring-black/10">
+                <div class="flex items-center gap-1.5 px-1 pb-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+                    <span class="ml-2 text-[10px] sm:text-xs text-gray-400 font-semibold truncate">BIO SLIDES — Apresentação</span>
+                </div>
+                <div class="tela">
+                    <div class="slide" style="background:linear-gradient(135deg,#0B3B2E 0%,#17705A 100%)">
+                        <div>
+                            <p class="num">Aula 01</p>
+                            <p class="titulo">Genética</p>
+                            <p class="sub">Gene, alelo, genótipo e fenótipo — do conceito ao exercício</p>
+                        </div>
+                        <span class="emoji" aria-hidden="true">🧬</span>
+                        <div class="rodape"><span>Objetivos</span><span>Exemplos</span><span>Resumo</span></div>
+                    </div>
+                    <div class="slide" style="background:linear-gradient(135deg,#1E3A8A 0%,#0EA5E9 100%)">
+                        <div>
+                            <p class="num">Aula 02</p>
+                            <p class="titulo">Mitose e Meiose</p>
+                            <p class="sub">Cada fase da divisão celular explicada com esquemas visuais</p>
+                        </div>
+                        <span class="emoji" aria-hidden="true">🔬</span>
+                        <div class="rodape"><span>Objetivos</span><span>Exemplos</span><span>Resumo</span></div>
+                    </div>
+                    <div class="slide" style="background:linear-gradient(135deg,#581C87 0%,#DB2777 100%)">
+                        <div>
+                            <p class="num">Aula 03</p>
+                            <p class="titulo">DNA e RNA</p>
+                            <p class="sub">Estrutura, replicação, transcrição e tradução</p>
+                        </div>
+                        <span class="emoji" aria-hidden="true">🧪</span>
+                        <div class="rodape"><span>Objetivos</span><span>Exemplos</span><span>Resumo</span></div>
+                    </div>
+                    <div class="slide" style="background:linear-gradient(135deg,#9A3412 0%,#F59E0B 100%)">
+                        <div>
+                            <p class="num">Aula 04</p>
+                            <p class="titulo">Hereditariedade</p>
+                            <p class="sub">Leis de Mendel na prática, com heredogramas e cruzamentos</p>
+                        </div>
+                        <span class="emoji" aria-hidden="true">🌱</span>
+                        <div class="rodape"><span>Objetivos</span><span>Exemplos</span><span>Resumo</span></div>
+                    </div>
+
+                    <!-- Cursor do professor -->
+                    <div class="cursor" aria-hidden="true">
+                        <span class="onda"></span>
+                        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4 2l16 9.5-7 1.6 4 7.4-3 1.5-4-7.4L4 19z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+            </div>
+            <!-- Base do notebook -->
+            <div class="mx-auto h-3 w-[70%] bg-gray-700 rounded-b-2xl shadow-lg"></div>
+
+            <!-- Miniaturas das aulas -->
+            <div class="grid grid-cols-4 gap-2 mt-5">
+                <div class="miniatura rounded-lg border-2 border-transparent bg-white shadow px-1.5 py-2 text-center">
+                    <p class="text-[9px] sm:text-[10px] font-black text-bio-700 uppercase">Aula 01</p>
+                    <p class="text-[10px] sm:text-xs font-bold text-bio-900 leading-tight">Genética</p>
+                </div>
+                <div class="miniatura rounded-lg border-2 border-transparent bg-white shadow px-1.5 py-2 text-center">
+                    <p class="text-[9px] sm:text-[10px] font-black text-bio-700 uppercase">Aula 02</p>
+                    <p class="text-[10px] sm:text-xs font-bold text-bio-900 leading-tight">Mitose e Meiose</p>
+                </div>
+                <div class="miniatura rounded-lg border-2 border-transparent bg-white shadow px-1.5 py-2 text-center">
+                    <p class="text-[9px] sm:text-[10px] font-black text-bio-700 uppercase">Aula 03</p>
+                    <p class="text-[10px] sm:text-xs font-bold text-bio-900 leading-tight">DNA e RNA</p>
+                </div>
+                <div class="miniatura rounded-lg border-2 border-transparent bg-white shadow px-1.5 py-2 text-center">
+                    <p class="text-[9px] sm:text-[10px] font-black text-bio-700 uppercase">Aula 04</p>
+                    <p class="text-[10px] sm:text-xs font-bold text-bio-900 leading-tight">Heredi&shy;tariedade</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- FAIXA: PARA QUEM É -->
+    <section class="bg-bio-900 py-6 sm:py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 text-white">
+                <i data-lucide="graduation-cap" class="w-8 h-8 text-brand-500"></i>
+                <p class="font-bold text-base md:text-xl leading-snug sm:leading-normal">
+                    Feito para professores de <strong class="text-brand-200">ensino médio, pré-ENEM, concursos e ensino superior.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. A DOR: TEMPO -->
+    <section class="py-16 sm:py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mb-4">Você não precisa de mais conteúdo. <span class="text-brand-600">Precisa de tempo.</span></h2>
+                <p class="text-gray-600 text-lg">Você já sabe Biologia. O que cansa é montar slide por slide, procurar imagem, alinhar texto e pensar em exemplo — toda semana, para cada turma.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="rounded-2xl border border-gray-200 bg-slate-50 p-6 sm:p-8">
+                    <p class="text-xs font-black uppercase tracking-widest text-gray-500 mb-4">Sem o BIO SLIDES</p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> Domingo à noite montando a aula da semana</li>
+                        <li class="flex gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> Horas caçando imagem e esquema que prestem</li>
+                        <li class="flex gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> Slide cheio de texto que a turma não lê</li>
+                        <li class="flex gap-3"><i data-lucide="x-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i> Refazer tudo quando muda de turma ou de escola</li>
+                    </ul>
+                </div>
+                <div class="rounded-2xl border-2 border-bio-700 bg-bio-50 p-6 sm:p-8 shadow-lg">
+                    <p class="text-xs font-black uppercase tracking-widest text-bio-700 mb-4">Com o BIO SLIDES</p>
+                    <ul class="space-y-3 text-gray-800">
+                        <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Abre a aula pronta, ajusta e projeta</li>
+                        <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Explicação visual, com esquemas no lugar de parágrafos</li>
+                        <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Pergunta para a turma já pensada em cada aula</li>
+                        <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Edita uma vez e reaproveita em todas as turmas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. O QUE TEM DENTRO -->
+    <section class="py-16 sm:py-20 bg-bio-50 border-y border-gray-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-brand-600 font-bold tracking-widest uppercase text-sm">50 aulas · 10 áreas</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mt-2 mb-4">O que tem dentro do BIO SLIDES?</h2>
+                <p class="text-gray-600 text-lg">Os conteúdos que você mais ensina e que mais caem no ENEM, em vestibulares e em concursos.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🧬</div>
+                    <h3 class="font-bold text-bio-900">Citologia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Célula, organelas e membrana</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🧬</div>
+                    <h3 class="font-bold text-bio-900">Genética</h3>
+                    <p class="text-xs text-gray-500 mt-1">Mendel, heredogramas e DNA</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🌱</div>
+                    <h3 class="font-bold text-bio-900">Ecologia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Cadeias, ciclos e biomas</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🫀</div>
+                    <h3 class="font-bold text-bio-900">Fisiologia Humana</h3>
+                    <p class="text-xs text-gray-500 mt-1">Sistemas do corpo humano</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🦠</div>
+                    <h3 class="font-bold text-bio-900">Microbiologia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Vírus, bactérias e fungos</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🦎</div>
+                    <h3 class="font-bold text-bio-900">Zoologia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Invertebrados e vertebrados</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🌿</div>
+                    <h3 class="font-bold text-bio-900">Botânica</h3>
+                    <p class="text-xs text-gray-500 mt-1">Grupos vegetais e fisiologia</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🧬</div>
+                    <h3 class="font-bold text-bio-900">Evolução</h3>
+                    <p class="text-xs text-gray-500 mt-1">Darwin, seleção e especiação</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🔬</div>
+                    <h3 class="font-bold text-bio-900">Biotecnologia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Clonagem, transgênicos e PCR</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <div class="text-4xl mb-3" aria-hidden="true">🧫</div>
+                    <h3 class="font-bold text-bio-900">Parasitologia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Ciclos, vetores e profilaxia</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. COMO É CADA AULA -->
+    <section class="py-16 sm:py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mb-4">Cada aula já vem com a sequência didática pronta</h2>
+                <p class="text-gray-600 text-lg">Não é um amontoado de slides soltos: é uma aula com começo, meio e fim.</p>
+            </div>
+
+            <ol class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+                <li class="bg-slate-50 rounded-2xl border border-slate-100 p-5 flex flex-col">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest">Passo 1</span>
+                    <i data-lucide="image" class="w-7 h-7 text-bio-700 my-3"></i>
+                    <h3 class="font-bold text-bio-900">Capa</h3>
+                    <p class="text-sm text-gray-600 mt-1">Abre a aula e prende a atenção da turma.</p>
+                </li>
+                <li class="bg-slate-50 rounded-2xl border border-slate-100 p-5 flex flex-col">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest">Passo 2</span>
+                    <i data-lucide="target" class="w-7 h-7 text-bio-700 my-3"></i>
+                    <h3 class="font-bold text-bio-900">Objetivos</h3>
+                    <p class="text-sm text-gray-600 mt-1">O que o aluno vai saber ao final.</p>
+                </li>
+                <li class="bg-slate-50 rounded-2xl border border-slate-100 p-5 flex flex-col">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest">Passo 3</span>
+                    <i data-lucide="eye" class="w-7 h-7 text-bio-700 my-3"></i>
+                    <h3 class="font-bold text-bio-900">Explicação visual</h3>
+                    <p class="text-sm text-gray-600 mt-1">Esquemas e imagens no lugar de parágrafos.</p>
+                </li>
+                <li class="bg-slate-50 rounded-2xl border border-slate-100 p-5 flex flex-col">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest">Passo 4</span>
+                    <i data-lucide="lightbulb" class="w-7 h-7 text-bio-700 my-3"></i>
+                    <h3 class="font-bold text-bio-900">Exemplos</h3>
+                    <p class="text-sm text-gray-600 mt-1">Situações do cotidiano que fixam o conceito.</p>
+                </li>
+                <li class="bg-slate-50 rounded-2xl border border-slate-100 p-5 flex flex-col">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest">Passo 5</span>
+                    <i data-lucide="message-circle-question" class="w-7 h-7 text-bio-700 my-3"></i>
+                    <h3 class="font-bold text-bio-900">Pergunta para a turma</h3>
+                    <p class="text-sm text-gray-600 mt-1">Engaja a sala e checa o entendimento.</p>
+                </li>
+                <li class="bg-slate-50 rounded-2xl border border-slate-100 p-5 flex flex-col">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest">Passo 6</span>
+                    <i data-lucide="list-checks" class="w-7 h-7 text-bio-700 my-3"></i>
+                    <h3 class="font-bold text-bio-900">Resumo final</h3>
+                    <p class="text-sm text-gray-600 mt-1">Fecha a aula com o que não pode faltar.</p>
+                </li>
+            </ol>
+
+            <div class="text-center mt-12">
+                <a href="#planos" class="inline-flex items-center justify-center w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-10 rounded-full shadow-lg transform transition hover:-translate-y-1 uppercase tracking-wider">
+                    Quero minhas aulas prontas
+                    <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PARA QUEM É -->
+    <section class="py-16 sm:py-20 bg-bio-50 border-y border-gray-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mb-4">Serve para a sua sala de aula</h2>
+                <p class="text-gray-600 text-lg">Você ajusta a profundidade; a estrutura da aula já está pronta.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-bio-700">
+                    <i data-lucide="school" class="w-8 h-8 text-bio-700 mb-3"></i>
+                    <h3 class="text-lg font-bold text-bio-900 mb-2">Ensino médio</h3>
+                    <p class="text-gray-600 text-sm">Aulas regulares do 1º ao 3º ano, com linguagem que o aluno acompanha.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-bio-700">
+                    <i data-lucide="pencil-ruler" class="w-8 h-8 text-bio-700 mb-3"></i>
+                    <h3 class="text-lg font-bold text-bio-900 mb-2">Pré-ENEM e vestibular</h3>
+                    <p class="text-gray-600 text-sm">Os temas mais cobrados, organizados para revisão rápida em cursinho.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-bio-700">
+                    <i data-lucide="file-badge" class="w-8 h-8 text-bio-700 mb-3"></i>
+                    <h3 class="text-lg font-bold text-bio-900 mb-2">Concursos</h3>
+                    <p class="text-gray-600 text-sm">Base sólida para preparatórios que cobram Biologia no edital.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-bio-700">
+                    <i data-lucide="university" class="w-8 h-8 text-bio-700 mb-3"></i>
+                    <h3 class="text-lg font-bold text-bio-900 mb-2">Faculdade</h3>
+                    <p class="text-gray-600 text-sm">Seminários, estágios de licenciatura e apresentações acadêmicas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. BIOBOX PROFESSOR (PREMIUM) -->
+    <section class="py-16 sm:py-20 bg-bio-900 text-white relative overflow-hidden">
+        <div class="absolute top-[-20%] right-[-10%] w-96 h-96 bg-brand-500 rounded-full filter blur-3xl opacity-20"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="bg-brand-500 text-white px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-sm">💎 Versão Premium</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold mt-4 mb-4">BIOBOX PROFESSOR</h2>
+                <p class="text-xl md:text-2xl font-bold text-brand-200 mb-4">Do planejamento à sala de aula: um banco completo de recursos para professores de Biologia.</p>
+                <p class="text-white/80 text-lg">Mais de <strong class="text-white">500 recursos</strong> para você nunca mais começar uma aula do zero.</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-200">200+</p>
+                    <p class="font-semibold mt-1">slides</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-200">300+</p>
+                    <p class="font-semibold mt-1">atividades</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-200">100+</p>
+                    <p class="font-semibold mt-1">questões</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-200">50</p>
+                    <p class="font-semibold mt-1">avaliações</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-200">50</p>
+                    <p class="font-semibold mt-1">jogos</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-200">30</p>
+                    <p class="font-semibold mt-1">experimentos</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
+                    <i data-lucide="calendar-check" class="w-8 h-8 text-brand-200"></i>
+                    <p class="font-semibold mt-2">Planos de aula</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
+                    <i data-lucide="clipboard-check" class="w-8 h-8 text-brand-200"></i>
+                    <p class="font-semibold mt-2">Gabaritos</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
+                    <i data-lucide="network" class="w-8 h-8 text-brand-200"></i>
+                    <p class="font-semibold mt-2">Mapas mentais</p>
+                </div>
+                <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
+                    <i data-lucide="repeat" class="w-8 h-8 text-brand-200"></i>
+                    <p class="font-semibold mt-2">Atividades de revisão</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button type="button" data-plano="biobox" class="js-comprar btn-pulse w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-extrabold py-4 px-10 rounded-full shadow-lg uppercase tracking-wider text-lg">
+                    Quero o BIOBOX por R$ 27
+                </button>
+                <p class="text-white/70 text-sm mt-3">Já inclui as 50 aulas do BIO SLIDES.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. PLANOS -->
+    <section id="planos" class="py-20 sm:py-24 bg-brand-50 text-bio-900 relative">
+        <div class="container mx-auto px-5 sm:px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-bio-900 mb-6">Escolha como quer preparar suas aulas</h2>
+                <p class="text-gray-700 text-lg">Pagamento único via PIX. Acesso imediato e vitalício.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-8 max-w-5xl mx-auto">
+
+                <!-- Plano BIO SLIDES -->
+                <div class="w-full md:w-1/2 lg:w-[400px] bg-white rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col text-gray-800 border-t-8 border-gray-300">
+                    <h3 class="text-2xl font-bold text-bio-900 mb-2">🧬 BIO SLIDES</h3>
+                    <p class="text-gray-500 mb-6 min-h-[48px] font-semibold">50 aulas de Biologia prontas para projetar</p>
+
+                    <div class="mb-6">
+                        <span class="text-5xl font-extrabold text-bio-900">R$ 12<span class="text-3xl">,90</span></span>
+                        <p class="text-sm text-gray-500 mt-1">pagamento único</p>
+                    </div>
+
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-bio-700 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-700">50 apresentações prontas e editáveis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-bio-700 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-700">10 áreas: de Citologia a Parasitologia</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-bio-700 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-700">Capa, objetivos, explicação visual, exemplos, pergunta e resumo</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-bio-700 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-700">Acesso imediato após o PIX</span>
+                        </li>
+                    </ul>
+
+                    <button type="button" data-plano="slides" class="js-comprar w-full block text-center bg-gray-200 hover:bg-gray-300 text-bio-900 font-bold py-4 px-6 rounded-xl transition uppercase tracking-wide">
+                        Quero o BIO SLIDES
+                    </button>
+                </div>
+
+                <!-- Plano BIOBOX (recomendado) -->
+                <div class="w-full md:w-1/2 lg:w-[400px] bg-white rounded-2xl shadow-2xl p-6 sm:p-8 flex flex-col text-gray-800 border-t-8 border-brand-500 relative transform md:-translate-y-4">
+                    <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-brand-500 text-white text-xs font-black uppercase px-4 py-1.5 rounded-full shadow-md tracking-wider whitespace-nowrap">
+                        Mais completo 💎
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-bio-900 mb-2">💎 BIOBOX PROFESSOR</h3>
+                    <p class="text-brand-600 mb-6 min-h-[48px] font-bold">Biblioteca completa com 500+ recursos</p>
+
+                    <div class="mb-6">
+                        <span class="text-5xl font-extrabold text-bio-900">R$ 27<span class="text-3xl">,00</span></span>
+                        <p class="text-sm text-gray-500 mt-1">pagamento único</p>
+                    </div>
+
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-900 font-medium"><strong>Tudo do BIO SLIDES</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-900 font-medium">200+ slides e 300+ atividades</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-900 font-medium">100+ questões e 50 avaliações com gabarito</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-900 font-medium">50 jogos e 30 experimentos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-900 font-medium">Planos de aula e mapas mentais</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-600 mr-3 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-gray-900 font-medium">Atividades de revisão</span>
+                        </li>
+                    </ul>
+
+                    <button type="button" data-plano="biobox" class="js-comprar btn-pulse w-full block text-center bg-brand-500 hover:bg-brand-600 text-white font-extrabold py-4 px-6 rounded-xl shadow-lg transition uppercase tracking-wider text-lg">
+                        Quero o BIOBOX 🚀
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- GARANTIA -->
+            <div class="max-w-2xl mx-auto mt-14 bg-white rounded-2xl border border-brand-200 shadow-md p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+                <div class="w-16 h-16 rounded-full bg-bio-100 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-bio-700"></i>
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-bio-900 text-lg">7 dias de garantia</h3>
+                    <p class="text-gray-600 text-sm mt-1">Se o material não servir para as suas aulas, você pede o reembolso em até 7 dias após a compra, como garante o Código de Defesa do Consumidor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. PERGUNTAS FREQUENTES -->
+    <section class="py-16 sm:py-20 bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mb-4">Perguntas frequentes</h2>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-3">
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 p-5">
+                    <summary class="flex items-center justify-between gap-4 cursor-pointer font-bold text-bio-900">
+                        Como recebo o material?
+                        <i data-lucide="chevron-down" class="seta w-5 h-5 flex-shrink-0 transition-transform"></i>
+                    </summary>
+                    <p class="text-gray-600 mt-3">Assim que o PIX é confirmado, o acesso é enviado para o e-mail informado na compra. A confirmação costuma levar poucos segundos.</p>
+                </details>
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 p-5">
+                    <summary class="flex items-center justify-between gap-4 cursor-pointer font-bold text-bio-900">
+                        Consigo editar os slides?
+                        <i data-lucide="chevron-down" class="seta w-5 h-5 flex-shrink-0 transition-transform"></i>
+                    </summary>
+                    <!-- CONFIRMAR: formato real dos arquivos entregues -->
+                    <p class="text-gray-600 mt-3">Sim. As apresentações são editáveis: você pode trocar textos, cores, imagens e a ordem dos slides para deixar a aula com a sua cara.</p>
+                </details>
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 p-5">
+                    <summary class="flex items-center justify-between gap-4 cursor-pointer font-bold text-bio-900">
+                        Serve para o nível dos meus alunos?
+                        <i data-lucide="chevron-down" class="seta w-5 h-5 flex-shrink-0 transition-transform"></i>
+                    </summary>
+                    <p class="text-gray-600 mt-3">O conteúdo foi pensado para ensino médio, pré-ENEM e preparatórios. Para faculdade ou concursos mais exigentes, é só aprofundar os slides que você quiser — a estrutura da aula já está pronta.</p>
+                </details>
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 p-5">
+                    <summary class="flex items-center justify-between gap-4 cursor-pointer font-bold text-bio-900">
+                        Qual a diferença entre o BIO SLIDES e o BIOBOX?
+                        <i data-lucide="chevron-down" class="seta w-5 h-5 flex-shrink-0 transition-transform"></i>
+                    </summary>
+                    <p class="text-gray-600 mt-3">O BIO SLIDES traz as 50 aulas prontas. O BIOBOX PROFESSOR inclui essas 50 aulas e mais de 500 recursos: atividades, questões, avaliações com gabarito, jogos, experimentos, planos de aula e mapas mentais.</p>
+                </details>
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 p-5">
+                    <summary class="flex items-center justify-between gap-4 cursor-pointer font-bold text-bio-900">
+                        É assinatura?
+                        <i data-lucide="chevron-down" class="seta w-5 h-5 flex-shrink-0 transition-transform"></i>
+                    </summary>
+                    <p class="text-gray-600 mt-3">Não. É pagamento único via PIX, sem mensalidade. O material é seu para usar sempre que precisar.</p>
+                </details>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#planos" class="inline-flex items-center justify-center w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-10 rounded-full shadow-lg transform transition hover:-translate-y-1 uppercase tracking-wider">
+                    Quero ganhar tempo nas minhas aulas
+                    <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-bio-900 text-white py-8 border-t border-bio-800">
+        <div class="container mx-auto px-6 text-center text-xs sm:text-sm text-gray-400">
+            <p>© 2026 BIO SLIDES. Todos os direitos reservados.</p>
+            <p class="mt-2">Material de apoio didático para professores de Biologia.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE CHECKOUT PIX -->
+    <div id="checkout" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-bio-900/70 backdrop-blur-sm p-3 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="checkout-titulo">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl max-h-[94vh] overflow-y-auto">
+
+            <div class="flex items-start justify-between gap-4 p-5 sm:p-6 pb-4 border-b border-gray-100">
+                <div>
+                    <h3 id="checkout-titulo" class="text-xl font-bold text-bio-900">Finalizar compra</h3>
+                    <p class="text-sm text-gray-500 mt-0.5"><span id="checkout-plano">—</span> · <strong class="text-bio-900" id="checkout-valor">—</strong></p>
+                </div>
+                <button type="button" id="checkout-fechar" class="text-gray-400 hover:text-bio-900 transition p-1 -m-1" aria-label="Fechar">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- ETAPA 1: DADOS + ORDER BUMPS -->
+            <form id="checkout-form" class="p-5 sm:p-6 space-y-4" novalidate>
+                <div>
+                    <label for="cp-nome" class="block text-sm font-semibold text-bio-900 mb-1">Nome completo</label>
+                    <input id="cp-nome" name="nome" type="text" autocomplete="name" required
+                           class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition">
+                    <p class="text-xs text-brand-600 mt-1 hidden" data-erro="nome"></p>
+                </div>
+                <div>
+                    <label for="cp-cpf" class="block text-sm font-semibold text-bio-900 mb-1">CPF</label>
+                    <input id="cp-cpf" name="cpf" type="text" inputmode="numeric" placeholder="000.000.000-00" required
+                           class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition">
+                    <p class="text-xs text-brand-600 mt-1 hidden" data-erro="cpf"></p>
+                </div>
+                <div>
+                    <label for="cp-email" class="block text-sm font-semibold text-bio-900 mb-1">E-mail</label>
+                    <input id="cp-email" name="email" type="email" autocomplete="email" required
+                           class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition">
+                    <p class="text-xs text-gray-500 mt-1">É neste e-mail que o material será entregue.</p>
+                    <p class="text-xs text-brand-600 mt-1 hidden" data-erro="email"></p>
+                </div>
+                <div>
+                    <label for="cp-telefone" class="block text-sm font-semibold text-bio-900 mb-1">Telefone (com DDD)</label>
+                    <input id="cp-telefone" name="telefone" type="tel" inputmode="numeric" placeholder="(11) 99999-8888" required
+                           class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none transition">
+                    <p class="text-xs text-brand-600 mt-1 hidden" data-erro="telefone"></p>
+                </div>
+
+                <!-- UPGRADE PARA O BIOBOX (só aparece no plano BIO SLIDES) -->
+                <div id="checkout-upgrade" class="hidden rounded-xl bg-bio-900 text-white p-4">
+                    <p class="text-xs font-black uppercase tracking-widest text-brand-200">💎 Upgrade</p>
+                    <p class="font-bold mt-1">Leve o BIOBOX PROFESSOR completo por + R$ 14,10</p>
+                    <p class="text-sm text-white/80 mt-1">As 50 aulas + 500 recursos: atividades, provas, jogos, experimentos e planos de aula.</p>
+                    <button type="button" id="checkout-upgrade-btn" class="mt-3 w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm uppercase tracking-wide transition">
+                        Trocar para o BIOBOX
+                    </button>
+                </div>
+
+                <!-- ORDER BUMPS -->
+                <fieldset>
+                    <legend class="text-sm font-extrabold text-bio-900 mb-1">🔥 Já que está levando, economize mais trabalho:</legend>
+                    <p id="checkout-bumps-nota" class="text-xs text-gray-500 mb-2 hidden">Jogos, provas, aulas práticas e atividades já estão inclusos no BIOBOX.</p>
+                    <div id="checkout-bumps" class="space-y-2"></div>
+                </fieldset>
+
+                <div class="flex items-center justify-between rounded-xl bg-slate-50 border border-slate-200 px-4 py-3">
+                    <span class="text-sm font-semibold text-gray-600">Total</span>
+                    <strong id="checkout-total" class="text-xl font-extrabold text-bio-900">—</strong>
+                </div>
+
+                <p id="checkout-erro-geral" class="hidden text-sm text-brand-600 bg-brand-50 border border-brand-200 rounded-xl p-3"></p>
+
+                <button type="submit" id="checkout-enviar"
+                        class="w-full bg-brand-500 hover:bg-brand-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-extrabold py-4 rounded-xl shadow-lg transition uppercase tracking-wider flex items-center justify-center gap-2">
+                    <span class="js-label">Gerar PIX</span>
+                    <i data-lucide="loader-circle" class="w-5 h-5 animate-spin hidden js-spinner"></i>
+                </button>
+                <p class="text-[11px] text-gray-400 text-center leading-relaxed">
+                    Seus dados são usados apenas para emitir a cobrança e entregar o material.
+                </p>
+            </form>
+
+            <!-- ETAPA 2: PAGAMENTO -->
+            <div id="checkout-pix" class="p-6 hidden text-center">
+                <p class="text-sm text-gray-600 mb-4">Abra o app do seu banco, escolha <strong>PIX Copia e Cola</strong> ou aponte para o QR Code.</p>
+
+                <img id="pix-imagem" src="" alt="QR Code do PIX" class="w-52 h-52 mx-auto rounded-xl border border-gray-200 bg-white object-contain">
+
+                <div class="mt-4 text-left">
+                    <label for="pix-codigo" class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">PIX copia e cola</label>
+                    <textarea id="pix-codigo" readonly rows="3"
+                              class="w-full text-xs font-mono rounded-xl border border-gray-300 p-3 bg-gray-50 resize-none"></textarea>
+                    <button type="button" id="pix-copiar"
+                            class="mt-2 w-full bg-bio-900 hover:bg-bio-800 text-white font-bold py-3 rounded-xl transition uppercase tracking-wide text-sm flex items-center justify-center gap-2">
+                        <i data-lucide="copy" class="w-4 h-4"></i> <span>Copiar código</span>
+                    </button>
+                </div>
+
+                <ul id="pix-itens" class="mt-4 text-left text-xs text-gray-600 bg-slate-50 rounded-xl p-3 space-y-1"></ul>
+
+                <div class="mt-5 flex items-center justify-center gap-2 text-sm font-semibold text-gray-600">
+                    <i data-lucide="loader-circle" class="w-4 h-4 animate-spin text-brand-500"></i>
+                    Aguardando pagamento… <span id="pix-timer" class="font-mono text-bio-900"></span>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-2">A confirmação é automática. Pode deixar esta página aberta.</p>
+            </div>
+
+            <!-- ETAPA 3: PAGO -->
+            <div id="checkout-pago" class="p-8 hidden text-center">
+                <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="check" class="w-8 h-8 text-green-600"></i>
+                </div>
+                <h4 class="text-2xl font-extrabold text-bio-900 mb-2">Pagamento confirmado!</h4>
+                <p class="text-gray-600">Enviamos o acesso para <strong id="pago-email" class="text-bio-900"></strong>. Se não achar, confira a caixa de spam.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS DINÂMICOS DA PÁGINA -->
+    <script>
+        /*
+         * 1. VÍDEO DA PRIMEIRA DOBRA
+         *
+         * TROCAR: coloque o arquivo em assets/video-hero.mp4 (e, se quiser, a capa
+         * em assets/video-hero.jpg) OU cole aqui o link do YouTube / Vimeo.
+         * Enquanto o vídeo não existir, a página mostra o mockup animado das aulas.
+         */
+        const VIDEO_HERO = 'assets/video-hero.mp4';
+        const CAPA_VIDEO = 'assets/video-hero.jpg';
+
+        const slotsHero = {
+            mobile:  document.querySelector('[data-hero-slot="mobile"]'),
+            desktop: document.querySelector('[data-hero-slot="desktop"]')
+        };
+        const telaGrande = window.matchMedia('(min-width: 1024px)');
+        let heroAtual = null;
+
+        function urlEmbed(url) {
+            let m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+            if (m) return `https://www.youtube.com/embed/${m[1]}?autoplay=1&mute=1&loop=1&playlist=${m[1]}&playsinline=1&rel=0`;
+            m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+            if (m) return `https://player.vimeo.com/video/${m[1]}?autoplay=1&muted=1&loop=1`;
+            return /^https?:\/\//.test(url) && !/\.(mp4|webm|mov)(\?|$)/i.test(url) ? url : '';
+        }
+
+        // Mantém um único player, sempre no espaço visível (mobile ou desktop).
+        function posicionarHero() {
+            if (!heroAtual) return;
+            const alvo = telaGrande.matches ? slotsHero.desktop : slotsHero.mobile;
+            if (heroAtual.parentNode !== alvo) alvo.appendChild(heroAtual);
+        }
+
+        function usarMockup() {
+            const bloco = document.createElement('div');
+            bloco.appendChild(document.getElementById('modelo-mockup').content.cloneNode(true));
+            if (heroAtual) heroAtual.replaceWith(bloco);
+            heroAtual = bloco;
+            posicionarHero();
+            iniciarMockup(bloco);
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function montarHero() {
+            const embed = VIDEO_HERO ? urlEmbed(VIDEO_HERO) : '';
+
+            if (!VIDEO_HERO) { usarMockup(); return; }
+
+            if (embed) {
+                const bloco = document.getElementById('modelo-embed').content.firstElementChild.cloneNode(true);
+                bloco.querySelector('.js-embed').src = embed;
+                heroAtual = bloco;
+                posicionarHero();
+                return;
+            }
+
+            const bloco = document.getElementById('modelo-video').content.firstElementChild.cloneNode(true);
+            const video = bloco.querySelector('.js-video');
+            const som = bloco.querySelector('.js-som');
+
+            // Sem o arquivo (ou formato não suportado): volta para o mockup.
+            video.addEventListener('error', usarMockup);
+            if (CAPA_VIDEO) {
+                const capa = new Image();
+                capa.onload = () => { video.poster = CAPA_VIDEO; };
+                capa.src = CAPA_VIDEO;
+            }
+            video.src = VIDEO_HERO;
+
+            // O navegador só deixa tocar sozinho sem som; o primeiro toque liga o áudio.
+            som.addEventListener('click', () => {
+                video.muted = false;
+                video.currentTime = 0;
+                video.controls = true;
+                video.play().catch(() => {});
+                som.remove();
+            });
+
+            heroAtual = bloco;
+            posicionarHero();
+        }
+
+        telaGrande.addEventListener('change', posicionarHero);
+        // Inicializar Ícones do Lucide
+        if (window.lucide) lucide.createIcons();
+
+        // 2. DATA ATUAL DINÂMICA (Ex: "06/08/2026")
+        const hoje = new Date();
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+        const ano = hoje.getFullYear();
+        document.getElementById('data-atual').textContent = `${dia}/${mes}/${ano}`;
+
+        // 3. CRONÔMETRO REGRESSIVO (15 Minutos)
+        let tempoRestante = 15 * 60;
+        const timerElemento = document.getElementById('countdown-timer');
+
+        function atualizarCronometro() {
+            const minutos = Math.floor(tempoRestante / 60);
+            const segundos = tempoRestante % 60;
+
+            timerElemento.textContent = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+
+            if (tempoRestante > 0) {
+                tempoRestante--;
+            } else {
+                tempoRestante = 15 * 60; // Reinicia se chegar a zero para manter urgência
+            }
+        }
+        setInterval(atualizarCronometro, 1000);
+
+        // 4. MOCKUP: o cursor "clica" e passa para a próxima aula
+        function iniciarMockup(mockup) {
+            const reduzirMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const slides = mockup.querySelectorAll('.slide');
+            const miniaturas = mockup.querySelectorAll('.miniatura');
+            const cursor = mockup.querySelector('.cursor');
+            let atual = 0;
+
+            function mostrar(indice) {
+                slides.forEach((s, i) => {
+                    s.classList.toggle('ativo', i === indice);
+                    s.classList.toggle('saindo', i === atual && i !== indice);
+                });
+                miniaturas.forEach((m, i) => m.classList.toggle('ativa', i === indice));
+                atual = indice;
+                setTimeout(() => slides.forEach(s => s.classList.remove('saindo')), 650);
+            }
+
+            mostrar(0);
+            if (reduzirMovimento) { cursor.style.display = 'none'; }
+
+            setInterval(() => {
+                if (reduzirMovimento) { mostrar((atual + 1) % slides.length); return; }
+                cursor.classList.add('clique');
+                setTimeout(() => {
+                    cursor.classList.remove('clique');
+                    mostrar((atual + 1) % slides.length);
+                }, 220);
+            }, 2800);
+        }
+
+        montarHero();
+        if (window.lucide) lucide.createIcons();
+    </script>
+
+    <!-- CHECKOUT PIX VIA ZUCKPAY -->
+    <script>
+    (function () {
+        'use strict';
+
+        // Caminho dos endpoints PHP. Ajuste se a pasta api/ não estiver na raiz do site.
+        const API = '/api';
+
+        // Apenas para exibição. O valor cobrado é sempre calculado no servidor (config.php).
+        const PLANOS = {
+            slides: { nome: 'BIO SLIDES',        valor: 12.90 },
+            biobox: { nome: 'BIOBOX PROFESSOR',  valor: 27.00 }
+        };
+
+        const BUMPS = [
+            { id: 'jogos',      emoji: '🎲', nome: '50 Jogos de Biologia',         valor: 4.90, inclusoEm: ['biobox'],
+              desc: 'Bingo, quiz, caça-palavras, verdadeiro/falso e desafios em grupo.' },
+            { id: 'provas',     emoji: '📝', nome: '50 Provas + Gabaritos',        valor: 7.90, inclusoEm: ['biobox'],
+              desc: 'Avaliações organizadas por conteúdo, prontas para aplicar.' },
+            { id: 'praticas',   emoji: '🔬', nome: '30 Aulas Práticas',            valor: 7.90, inclusoEm: ['biobox'],
+              desc: 'Experimentos simples com materiais acessíveis.' },
+            { id: 'atividades', emoji: '📋', nome: '100 Atividades de Fixação',    valor: 4.90, inclusoEm: ['biobox'],
+              desc: 'Prontas para imprimir ou enviar aos alunos.' },
+            { id: 'genetica',   emoji: '🧬', nome: 'Kit Genética',                 valor: 4.90, inclusoEm: [],
+              desc: 'Slides + atividades + questões + exercícios de genética.' },
+            { id: 'ecologia',   emoji: '🌱', nome: 'Kit Ecologia',                 valor: 4.90, inclusoEm: [],
+              desc: 'Slides + atividades + jogos + questões sobre ecologia.' },
+            { id: 'prompts',    emoji: '🤖', nome: '100 Prompts para Professores', valor: 7.90, inclusoEm: [],
+              desc: 'Gere atividades, provas, planos de aula, quizzes, revisões e adaptações de conteúdo.' }
+        ];
+
+        const brl = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        const modal     = document.getElementById('checkout');
+        const form      = document.getElementById('checkout-form');
+        const telaPix   = document.getElementById('checkout-pix');
+        const telaPago  = document.getElementById('checkout-pago');
+        const enviar    = document.getElementById('checkout-enviar');
+        const erroGeral = document.getElementById('checkout-erro-geral');
+        const listaBumps = document.getElementById('checkout-bumps');
+
+        let planoAtual = null;
+        let poll = null;
+        let contagem = null;
+        let pedido = null;              // id do pedido, estável entre tentativas (idempotência)
+        const marcados = new Set();     // bumps escolhidos
+
+        /* ---------- atribuição (UTMs, Meta, Google, TikTok) ---------- */
+        function lerCookie(nome) {
+            const achado = document.cookie.split('; ').find(c => c.startsWith(nome + '='));
+            return achado ? decodeURIComponent(achado.split('=').slice(1).join('=')) : '';
+        }
+
+        function rastreio() {
+            const url = new URLSearchParams(location.search);
+            const dados = {};
+            ['utm_source','utm_campaign','utm_medium','utm_content','utm_term','gclid','ttclid','click_id']
+                .forEach(k => { const v = url.get(k); if (v) dados[k] = v; });
+            const fbc = lerCookie('_fbc'); if (fbc) dados.fbc = fbc;
+            const fbp = lerCookie('_fbp'); if (fbp) dados.fbp = fbp;
+            return dados;
+        }
+
+        /* ---------- máscaras ---------- */
+        function mascararCpf(v) {
+            return v.replace(/\D/g, '').slice(0, 11)
+                    .replace(/(\d{3})(\d)/, '$1.$2')
+                    .replace(/(\d{3})(\d)/, '$1.$2')
+                    .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        }
+        function mascararTelefone(v) {
+            const d = v.replace(/\D/g, '').slice(0, 11);
+            if (d.length <= 10) return d.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{4})(\d)/, '$1-$2');
+            return d.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2');
+        }
+        document.getElementById('cp-cpf').addEventListener('input', e => { e.target.value = mascararCpf(e.target.value); });
+        document.getElementById('cp-telefone').addEventListener('input', e => { e.target.value = mascararTelefone(e.target.value); });
+
+        /* ---------- order bumps ---------- */
+        function bumpsDisponiveis() {
+            return BUMPS.filter(b => !b.inclusoEm.includes(planoAtual));
+        }
+
+        function total() {
+            const centavos = bumpsDisponiveis()
+                .filter(b => marcados.has(b.id))
+                .reduce((soma, b) => soma + Math.round(b.valor * 100), Math.round(PLANOS[planoAtual].valor * 100));
+            return centavos / 100;
+        }
+
+        function atualizarTotal() {
+            const valor = brl(total());
+            document.getElementById('checkout-valor').textContent = valor;
+            document.getElementById('checkout-total').textContent = valor;
+            if (!enviar.disabled) enviar.querySelector('.js-label').textContent = `Gerar PIX · ${valor}`;
+        }
+
+        function renderizarBumps() {
+            listaBumps.innerHTML = '';
+            bumpsDisponiveis().forEach(b => {
+                const rotulo = document.createElement('label');
+                rotulo.className = 'bump block cursor-pointer';
+                rotulo.innerHTML = `
+                    <input type="checkbox" class="sr-only" value="${b.id}">
+                    <div class="bump-caixa flex items-start gap-3 rounded-xl border-2 border-dashed border-brand-200 p-3 transition">
+                        <span class="js-check mt-0.5 flex-shrink-0 w-5 h-5 rounded border-2 border-brand-500 flex items-center justify-center text-white text-xs font-black"></span>
+                        <span class="text-2xl leading-none" aria-hidden="true">${b.emoji}</span>
+                        <span class="flex-1 min-w-0">
+                            <span class="flex items-baseline justify-between gap-2">
+                                <strong class="text-sm text-bio-900">${b.nome}</strong>
+                                <strong class="text-sm text-brand-600 whitespace-nowrap">+ ${brl(b.valor)}</strong>
+                            </span>
+                            <span class="block text-xs text-gray-500 mt-0.5">${b.desc}</span>
+                        </span>
+                    </div>`;
+                const caixa = rotulo.querySelector('input');
+                const check = rotulo.querySelector('.js-check');
+                const pintar = () => {
+                    check.textContent = caixa.checked ? '✓' : '';
+                    check.classList.toggle('bg-brand-500', caixa.checked);
+                };
+                caixa.checked = marcados.has(b.id);
+                pintar();
+                caixa.addEventListener('change', () => {
+                    caixa.checked ? marcados.add(b.id) : marcados.delete(b.id);
+                    pintar();
+                    atualizarTotal();
+                });
+                listaBumps.appendChild(rotulo);
+            });
+
+            document.getElementById('checkout-bumps-nota').classList.toggle('hidden', planoAtual !== 'biobox');
+            document.getElementById('checkout-upgrade').classList.toggle('hidden', planoAtual !== 'slides');
+        }
+
+        function definirPlano(plano) {
+            planoAtual = plano;
+            document.getElementById('checkout-plano').textContent = PLANOS[plano].nome;
+            renderizarBumps();
+            atualizarTotal();
+        }
+
+        document.getElementById('checkout-upgrade-btn').addEventListener('click', () => {
+            definirPlano('biobox');
+            if (window.fbq) fbq('trackCustom', 'UpgradeBiobox');
+        });
+
+        /* ---------- abrir / fechar ---------- */
+        function mostrarEtapa(etapa) {
+            form.classList.toggle('hidden', etapa !== 'form');
+            telaPix.classList.toggle('hidden', etapa !== 'pix');
+            telaPago.classList.toggle('hidden', etapa !== 'pago');
+        }
+
+        function abrir(plano) {
+            // Um id por abertura do modal: reenviar o formulário não gera
+            // uma segunda cobrança, a ZuckPay devolve a mesma.
+            pedido = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2))
+                     .replace(/[^a-zA-Z0-9-]/g, '');
+            marcados.clear();
+            definirPlano(plano);
+            limparErros();
+            mostrarEtapa('form');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            if (window.lucide) lucide.createIcons();
+            if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: PLANOS[plano].nome, value: PLANOS[plano].valor, currency: 'BRL' });
+            if (window.oaiq && !window.__oaiCheckoutRegistrado) {
+                window.__oaiCheckoutRegistrado = true;
+                oaiq('measure', 'checkout_started', { type: 'contents' });
+            }
+        }
+
+        function fechar() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+            clearTimeout(poll); clearInterval(contagem);
+        }
+
+        document.querySelectorAll('.js-comprar').forEach(b => {
+            b.addEventListener('click', () => abrir(b.dataset.plano));
+        });
+        document.getElementById('checkout-fechar').addEventListener('click', fechar);
+        modal.addEventListener('click', e => { if (e.target === modal) fechar(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) fechar();
+        });
+
+        /* ---------- erros ---------- */
+        function limparErros() {
+            document.querySelectorAll('[data-erro]').forEach(p => { p.classList.add('hidden'); p.textContent = ''; });
+            erroGeral.classList.add('hidden'); erroGeral.textContent = '';
+        }
+        function mostrarErros(campos, geral) {
+            limparErros();
+            Object.entries(campos || {}).forEach(([campo, msg]) => {
+                const p = document.querySelector(`[data-erro="${campo}"]`);
+                if (p) { p.textContent = msg; p.classList.remove('hidden'); }
+            });
+            if (geral) { erroGeral.textContent = geral; erroGeral.classList.remove('hidden'); }
+        }
+
+        function carregando(estado) {
+            enviar.disabled = estado;
+            enviar.querySelector('.js-spinner').classList.toggle('hidden', !estado);
+            if (estado) enviar.querySelector('.js-label').textContent = 'Gerando…';
+            else atualizarTotal();
+        }
+
+        /* ---------- envio ---------- */
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            limparErros();
+            carregando(true);
+
+            try {
+                const resposta = await fetch(API + '/pix.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        plano:    planoAtual,
+                        bumps:    bumpsDisponiveis().filter(b => marcados.has(b.id)).map(b => b.id),
+                        pedido:   pedido,
+                        nome:     document.getElementById('cp-nome').value,
+                        cpf:      document.getElementById('cp-cpf').value,
+                        email:    document.getElementById('cp-email').value,
+                        telefone: document.getElementById('cp-telefone').value,
+                        rastreio: rastreio()
+                    })
+                });
+
+                const dados = await resposta.json().catch(() => ({}));
+
+                if (!resposta.ok) {
+                    if (dados.debug) console.error('[zuckpay] detalhe do erro:', dados.debug);
+                    const msg = (dados.erro || 'Não foi possível gerar o PIX.')
+                              + (dados.ref ? ` (código ${dados.ref})` : '');
+                    mostrarErros(dados.campos, dados.campos ? null : msg);
+                    return;
+                }
+
+                exibirPix(dados);
+            } catch (_) {
+                mostrarErros(null, 'Falha de conexão. Verifique sua internet e tente de novo.');
+            } finally {
+                carregando(false);
+            }
+        });
+
+        /* ---------- pagamento ---------- */
+        function exibirPix(dados) {
+            document.getElementById('pix-codigo').value = dados.qrcode || '';
+            const img = document.getElementById('pix-imagem');
+            if (dados.qrcode_image) { img.src = dados.qrcode_image; img.classList.remove('hidden'); }
+            else { img.classList.add('hidden'); }
+
+            // Valor e itens confirmados pelo servidor.
+            if (typeof dados.valor === 'number') document.getElementById('checkout-valor').textContent = brl(dados.valor);
+            const lista = document.getElementById('pix-itens');
+            lista.innerHTML = '';
+            (dados.itens || []).forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = '✓ ' + item;
+                lista.appendChild(li);
+            });
+            lista.classList.toggle('hidden', !(dados.itens || []).length);
+
+            mostrarEtapa('pix');
+            if (window.lucide) lucide.createIcons();
+
+            let restante = dados.expiracao || 1200;
+            const relogio = document.getElementById('pix-timer');
+            clearInterval(contagem);
+            contagem = setInterval(() => {
+                restante--;
+                if (restante <= 0) { clearInterval(contagem); clearTimeout(poll); relogio.textContent = '(expirado)'; return; }
+                relogio.textContent = `(${String(Math.floor(restante / 60)).padStart(2,'0')}:${String(restante % 60).padStart(2,'0')})`;
+            }, 1000);
+
+            clearTimeout(poll);
+            agendarConsulta(dados, 5);
+        }
+
+        /**
+         * A ZuckPay limita requisições, então em vez de um intervalo fixo
+         * usamos o atraso que o servidor sugere (ele aumenta para 30s quando
+         * o rate limit é atingido).
+         */
+        function agendarConsulta(dados, segundos) {
+            clearTimeout(poll);
+            poll = setTimeout(() => verificar(dados), segundos * 1000);
+        }
+
+        async function verificar(dados) {
+            let proxima = 8;
+            try {
+                const r = await fetch(`${API}/status.php?transactionId=${encodeURIComponent(dados.transactionId)}`);
+                const s = await r.json();
+
+                if (r.ok && s.pago) {
+                    clearTimeout(poll); clearInterval(contagem);
+                    document.getElementById('pago-email').textContent = document.getElementById('cp-email').value;
+                    mostrarEtapa('pago');
+                    if (window.lucide) lucide.createIcons();
+                    if (window.fbq) fbq('track', 'Purchase', { value: dados.valor, currency: 'BRL', content_name: dados.plano });
+                    return;
+                }
+
+                // Recusado, expirado ou estornado: não adianta continuar.
+                if (r.ok && s.final) { clearTimeout(poll); clearInterval(contagem); return; }
+
+                if (r.ok && s.proxima_consulta) proxima = s.proxima_consulta;
+            } catch (_) { /* rede instável: a próxima tentativa resolve */ }
+
+            agendarConsulta(dados, proxima);
+        }
+
+        /* ---------- copiar ---------- */
+        document.getElementById('pix-copiar').addEventListener('click', async function () {
+            const campo = document.getElementById('pix-codigo');
+            const rotulo = this.querySelector('span');
+            try {
+                await navigator.clipboard.writeText(campo.value);
+            } catch (_) {
+                campo.select(); document.execCommand('copy');
+            }
+            rotulo.textContent = 'Copiado!';
+            setTimeout(() => { rotulo.textContent = 'Copiar código'; }, 2000);
+        });
+    })();
+    </script>
+
+</body>
+</html>
