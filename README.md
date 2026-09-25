@@ -80,8 +80,8 @@ da ZuckPay (com `0` ele não é enviado).
 
 O topo da página mostra um vídeo. Envie o arquivo para `assets/video-hero.mp4`
 (capa opcional em `assets/video-hero.jpg`) ou troque a constante `VIDEO_HERO`
-no `index.html` por um link do YouTube ou Vimeo. O vídeo começa sem som (regra
-dos navegadores para autoplay) e o botão "Toque para ouvir" liga o áudio.
+no `index.html` por um link do YouTube ou Vimeo. O vídeo fica parado na capa com
+um botão de play e só toca, já com som, quando o visitante clica.
 Sem vídeo, a página mostra o mockup animado das aulas no lugar.
 
 ## Conferir o webhook

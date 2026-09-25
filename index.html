@@ -439,11 +439,11 @@
     <!-- PLAYER DO VÍDEO DA PRIMEIRA DOBRA -->
     <template id="modelo-video">
         <!-- Vídeo vertical (9:16). Para um vídeo horizontal, troque aspect-[9/16] por aspect-video e tire o max-w. -->
-        <div class="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white bg-bio-900">
-            <video class="js-video block w-full aspect-[9/16] object-cover" autoplay muted loop playsinline preload="metadata"></video>
-            <button type="button" class="js-som absolute inset-0 flex items-end justify-center pb-4 bg-gradient-to-t from-black/50 via-transparent to-transparent">
-                <span class="inline-flex items-center gap-2 bg-brand-500 text-white text-sm font-extrabold uppercase tracking-wide px-4 py-2 rounded-full shadow-lg">
-                    <i data-lucide="volume-2" class="w-4 h-4"></i> Toque para ouvir
+        <div class="relative mx-auto w-full max-w-[200px] sm:max-w-[240px] lg:max-w-[260px] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white bg-bio-900">
+            <video class="js-video block w-full aspect-[9/16] object-cover" playsinline preload="metadata"></video>
+            <button type="button" class="js-play absolute inset-0 flex items-center justify-center bg-black/15 hover:bg-black/5 transition group" aria-label="Assistir ao vídeo">
+                <span class="w-16 h-16 rounded-full bg-brand-500 group-hover:bg-brand-600 shadow-xl ring-4 ring-white/70 flex items-center justify-center transition group-hover:scale-105">
+                    <svg viewBox="0 0 24 24" class="w-7 h-7 ml-1" fill="#fff" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
                 </span>
             </button>
         </div>
@@ -1177,7 +1177,7 @@
 
             const bloco = document.getElementById('modelo-video').content.firstElementChild.cloneNode(true);
             const video = bloco.querySelector('.js-video');
-            const som = bloco.querySelector('.js-som');
+            const play = bloco.querySelector('.js-play');
 
             // Sem o arquivo (ou formato não suportado): volta para o mockup.
             video.addEventListener('error', usarMockup);
@@ -1188,13 +1188,16 @@
             }
             video.src = VIDEO_HERO;
 
-            // O navegador só deixa tocar sozinho sem som; o primeiro toque liga o áudio.
-            som.addEventListener('click', () => {
-                video.muted = false;
-                video.currentTime = 0;
+            // O vídeo só começa quando o visitante toca no play, já com som.
+            play.addEventListener('click', () => {
                 video.controls = true;
                 video.play().catch(() => {});
-                som.remove();
+                play.classList.add('hidden');
+            });
+            // Ao terminar, volta a mostrar o botão de play.
+            video.addEventListener('ended', () => {
+                video.controls = false;
+                play.classList.remove('hidden');
             });
 
             heroAtual = bloco;
