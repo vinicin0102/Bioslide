@@ -1359,7 +1359,7 @@
     (function () {
         'use strict';
 
-        // Caminho dos endpoints PHP. Ajuste se a pasta api/ não estiver na raiz do site.
+        // Funções da API no Vercel (pasta api/).
         const API = '/api';
 
         // Apenas para exibição. O valor cobrado é sempre calculado no servidor (config.php).
@@ -1573,7 +1573,7 @@
             carregando(true);
 
             try {
-                const resposta = await fetch(API + '/pix.php', {
+                const resposta = await fetch(API + '/pix', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1658,7 +1658,7 @@
         async function verificar(dados) {
             let proxima = 8;
             try {
-                const r = await fetch(`${API}/status.php?transactionId=${encodeURIComponent(dados.transactionId)}`);
+                const r = await fetch(`${API}/status?transactionId=${encodeURIComponent(dados.transactionId)}`);
                 const s = await r.json();
 
                 if (r.ok && s.pago) {
