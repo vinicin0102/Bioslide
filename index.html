@@ -1188,17 +1188,17 @@
             }
             video.src = VIDEO_HERO;
 
-            // O vídeo só começa quando o visitante toca no play, já com som.
-            play.addEventListener('click', () => {
-                video.controls = true;
-                video.play().catch(() => {});
-                play.classList.add('hidden');
-            });
-            // Ao terminar, volta a mostrar o botão de play.
-            video.addEventListener('ended', () => {
-                video.controls = false;
-                play.classList.remove('hidden');
-            });
+            // Sem barra de controles: só o botão de play. Tocar no vídeo pausa
+            // e o botão volta; ao terminar, também volta.
+            video.controls = false;
+            video.disablePictureInPicture = true;
+            video.setAttribute('controlsList', 'nodownload nofullscreen noremoteplayback');
+            video.addEventListener('contextmenu', e => e.preventDefault());
+            play.addEventListener('click', () => { video.play().catch(() => {}); });
+            video.addEventListener('click', () => video.pause());
+            video.addEventListener('play',  () => play.classList.add('hidden'));
+            video.addEventListener('pause', () => play.classList.remove('hidden'));
+            video.addEventListener('ended', () => play.classList.remove('hidden'));
 
             heroAtual = bloco;
             posicionarHero();
