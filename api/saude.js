@@ -22,8 +22,10 @@ export async function GET() {
     };
 
     if (cfg.clientId && cfg.clientSecret) {
-        const { status, destino } = await chamarZuckpay(cfg, 'GET', '/status?transactionId=TESTE-SAUDE-000');
+        const { status, corpo, destino } = await chamarZuckpay(cfg, 'GET', '/status?transactionId=TESTE-SAUDE-000');
         dados.zuckpay_http = status;
+        // Mensagem da ZuckPay (sem dados sensíveis: é uma consulta de id inexistente).
+        dados.zuckpay_mensagem = String(corpo.message ?? corpo.mensagem ?? corpo.error ?? corpo.erro ?? '').slice(0, 200);
         dados.diagnostico =
             status === 0 ? 'FALHA DE CONEXÃO com a ZuckPay' :
             status >= 300 && status < 400 ? `REDIRECIONAMENTO — ajuste ZUCKPAY_API_BASE para o host de ${destino}` :
