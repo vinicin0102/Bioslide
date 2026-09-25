@@ -85,7 +85,7 @@
 
     }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-    fbq('init', '352488377782448');
+    fbq('init', '1405348347683200');
 
     /* Registra o carregamento da página */
     fbq('track', 'PageView');
@@ -96,6 +96,8 @@
       content_category: 'Material para Professores de Biologia'
     });
     </script>
+    <noscript><img height="1" width="1" style="display:none" alt=""
+      src="https://www.facebook.com/tr?id=1405348347683200&ev=PageView&noscript=1"></noscript>
     <!-- End Meta Pixel -->
 
     <!-- OpenAI Pixel -->
@@ -1398,6 +1400,7 @@
         let contagem = null;
         let pedido = null;              // id do pedido, estável entre tentativas (idempotência)
         const marcados = new Set();     // bumps escolhidos
+        const compraRegistrada = {};    // evita Purchase duplicado
 
         /* ---------- atribuição (UTMs, Meta, Google, TikTok) ---------- */
         function lerCookie(nome) {
@@ -1595,6 +1598,11 @@
                     return;
                 }
 
+                dados.ids = [planoAtual].concat(bumpsDisponiveis().filter(b => marcados.has(b.id)).map(b => b.id));
+                if (window.fbq) fbq('track', 'AddPaymentInfo', {
+                    value: dados.valor, currency: 'BRL', content_name: dados.plano,
+                    content_ids: dados.ids, content_type: 'product'
+                });
                 exibirPix(dados);
             } catch (_) {
                 mostrarErros(null, 'Falha de conexão. Verifique sua internet e tente de novo.');
@@ -1658,7 +1666,14 @@
                     document.getElementById('pago-email').textContent = document.getElementById('cp-email').value;
                     mostrarEtapa('pago');
                     if (window.lucide) lucide.createIcons();
-                    if (window.fbq) fbq('track', 'Purchase', { value: dados.valor, currency: 'BRL', content_name: dados.plano });
+                    if (window.fbq && !compraRegistrada[dados.transactionId]) {
+                        compraRegistrada[dados.transactionId] = true;
+                        // eventID igual ao transactionId permite deduplicar com a API de Conversões.
+                        fbq('track', 'Purchase', {
+                            value: dados.valor, currency: 'BRL', content_name: dados.plano,
+                            content_ids: dados.ids, content_type: 'product', num_items: dados.ids.length
+                        }, { eventID: dados.transactionId });
+                    }
                     return;
                 }
 
