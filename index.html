@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIO SLIDES | 50 Aulas de Biologia Prontas para Professores</title>
-    <meta name="description" content="50 apresentações de Biologia prontas para você aplicar em sala, editar e projetar. Para professores do ensino médio, pré-ENEM, concursos e faculdade.">
+    <title>BIO SLIDES | 150 Slides de Biologia Prontos para Professores</title>
+    <meta name="description" content="150 slides de Biologia prontos, com mais de 50 matérias: é só baixar e passar na sua aula. Para professores do ensino médio, pré-ENEM, concursos e faculdade.">
 
     <!-- Google Fonts: Inter para modernidade e legibilidade -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,7 +92,7 @@
 
     /* Registra a visualização da oferta, sem catálogo */
     fbq('track', 'ViewContent', {
-      content_name: 'BIO SLIDES — 50 Aulas de Biologia Prontas',
+      content_name: 'BIO SLIDES — 150 Slides de Biologia Prontos',
       content_category: 'Material para Professores de Biologia'
     });
     </script>
@@ -287,6 +287,30 @@
             outline-offset: 2px;
         }
 
+        /* ================= CARROSSÉIS AUTOMÁTICOS ================= */
+        .carrossel {
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+                    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+        }
+        .carrossel-trilho {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: rolar var(--duracao, 60s) linear infinite;
+        }
+        .carrossel-trilho.reverso { animation-direction: reverse; }
+        .carrossel:hover .carrossel-trilho,
+        .carrossel:focus-within .carrossel-trilho { animation-play-state: paused; }
+        @keyframes rolar {
+            from { transform: translateX(0); }
+            to   { transform: translateX(calc(-50% - 10px)); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .carrossel { overflow-x: auto; }
+            .carrossel-trilho { animation: none; }
+        }
+
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
         details[open] .seta { transform: rotate(180deg); }
@@ -297,8 +321,8 @@
     <!-- FAIXA DE URGÊNCIA (CRONÔMETRO) STICKY E FINA -->
     <div class="bg-bio-900 text-white py-1.5 px-2 text-center z-[99] sticky top-0 w-full shadow-md">
         <p class="text-[11px] sm:text-sm font-bold flex justify-center items-center gap-2 m-0">
-            <span class="hidden sm:inline">🧬 PREÇO DE LANÇAMENTO: 50 aulas de Biologia prontas por R$ 12,90</span>
-            <span class="sm:hidden">🧬 50 aulas prontas por R$ 12,90</span>
+            <span class="hidden sm:inline">🧬 PREÇO DE LANÇAMENTO: 150 slides de Biologia prontos por R$ 12,90</span>
+            <span class="sm:hidden">🧬 150 slides prontos por R$ 12,90</span>
             <span class="bg-brand-500 px-2 py-0.5 rounded text-xs sm:text-base tracking-widest font-mono shadow-inner" id="countdown-timer">15:00</span>
         </p>
     </div>
@@ -323,7 +347,7 @@
                 </h1>
 
                 <p class="text-lg lg:text-xl text-gray-700 mb-6 leading-relaxed">
-                    <strong class="text-bio-900">50 apresentações de Biologia prontas</strong> para você aplicar em sala, editar e projetar. Abra, ajuste do seu jeito e dê a aula de amanhã sem virar a noite.
+                    <strong class="text-bio-900">150 slides de Biologia já prontos</strong>, com <strong class="text-bio-900">mais de 50 matérias</strong>. É só baixar e passar na sua aula — sem virar a noite montando apresentação.
                 </p>
 
                 <!-- VÍDEO DA PRIMEIRA DOBRA (mobile: logo abaixo do título) -->
@@ -334,14 +358,14 @@
                     <div class="flex items-stretch border-b border-dashed border-brand-200 bg-brand-100">
                         <div class="p-3 sm:p-4 sm:pl-6 flex-1 flex flex-col justify-center text-left">
                             <span class="text-brand-600 text-[9px] sm:text-xs font-extrabold tracking-widest uppercase mb-0.5 sm:mb-1">Preço de lançamento</span>
-                            <h3 class="text-bio-900 font-black text-xs sm:text-base leading-tight uppercase">50 aulas por só R$ 0,26 cada</h3>
+                            <h3 class="text-bio-900 font-black text-xs sm:text-base leading-tight uppercase">150 slides por menos de R$ 0,09 cada</h3>
                         </div>
                         <div class="bg-brand-500 text-white w-20 sm:w-28 flex flex-col justify-center items-center font-extrabold border-l-2 border-dashed border-brand-200 relative">
                             <div class="absolute -left-1.5 sm:-left-2 top-[-6px] sm:top-[-8px] w-3 h-3 sm:w-4 sm:h-4 bg-brand-50 rounded-full"></div>
                             <div class="absolute -left-1.5 sm:-left-2 bottom-[-6px] sm:bottom-[-8px] w-3 h-3 sm:w-4 sm:h-4 bg-brand-50 rounded-full"></div>
 
-                            <span class="text-2xl sm:text-4xl leading-none tracking-tighter">50</span>
-                            <span class="text-[9px] sm:text-xs uppercase tracking-widest mt-0.5 sm:mt-1 font-black">aulas</span>
+                            <span class="text-2xl sm:text-4xl leading-none tracking-tighter">150</span>
+                            <span class="text-[9px] sm:text-xs uppercase tracking-widest mt-0.5 sm:mt-1 font-black">slides</span>
                         </div>
                     </div>
 
@@ -369,21 +393,21 @@
 
                 <div class="w-full flex flex-col items-center lg:items-start mb-6 z-20">
                     <a href="#planos" class="btn-pulse w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white text-lg sm:text-xl font-bold py-4 px-10 rounded-full text-center uppercase tracking-wider block">
-                        Quero as 50 aulas prontas
+                        Quero os 150 slides prontos
                     </a>
 
                     <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mt-4 text-xs sm:text-sm font-semibold text-bio-900">
                         <div class="flex items-center gap-1.5 bg-white border border-bio-100 px-3 py-1.5 rounded-md shadow-sm">
                             <i data-lucide="presentation" class="w-4 h-4 text-bio-700"></i>
-                            <span>50 aulas prontas</span>
+                            <span>150 slides prontos</span>
                         </div>
                         <div class="flex items-center gap-1.5 bg-white border border-bio-100 px-3 py-1.5 rounded-md shadow-sm">
                             <i data-lucide="pencil" class="w-4 h-4 text-bio-700"></i>
-                            <span>100% editáveis</span>
+                            <span>Baixou, passou</span>
                         </div>
                         <div class="flex items-center gap-1.5 bg-white border border-bio-100 px-3 py-1.5 rounded-md shadow-sm">
                             <i data-lucide="layers" class="w-4 h-4 text-bio-700"></i>
-                            <span>10 áreas da Biologia</span>
+                            <span>+50 matérias</span>
                         </div>
                     </div>
                 </div>
@@ -524,6 +548,27 @@
         </div>
     </section>
 
+    <!-- CARROSSEL: SLIDES PRONTOS -->
+    <section class="py-16 sm:py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-brand-600 font-bold tracking-widest uppercase text-sm">Veja por dentro</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mt-2 mb-4">150 slides prontos para passar na sua aula</h2>
+                <p class="text-gray-600 text-lg">Mais de 50 matérias com ilustrações que prendem a atenção da turma. É só baixar e projetar.</p>
+            </div>
+        </div>
+        <div class="space-y-5">
+            <div class="carrossel" data-carrossel="slides-1" style="--duracao: 55s"></div>
+            <div class="carrossel" data-carrossel="slides-2" style="--duracao: 50s"></div>
+        </div>
+        <div class="container mx-auto px-6 text-center mt-10">
+            <a href="#planos" class="inline-flex items-center justify-center w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-10 rounded-full shadow-lg transform transition hover:-translate-y-1 uppercase tracking-wider">
+                Quero os 150 slides
+                <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+            </a>
+        </div>
+    </section>
+
     <!-- 2. A DOR: TEMPO -->
     <section class="py-16 sm:py-20 bg-white">
         <div class="container mx-auto px-6">
@@ -545,10 +590,10 @@
                 <div class="rounded-2xl border-2 border-bio-700 bg-bio-50 p-6 sm:p-8 shadow-lg">
                     <p class="text-xs font-black uppercase tracking-widest text-bio-700 mb-4">Com o BIO SLIDES</p>
                     <ul class="space-y-3 text-gray-800">
-                        <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Abre a aula pronta, ajusta e projeta</li>
+                        <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Baixa o slide pronto e já passa na aula</li>
                         <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Explicação visual, com esquemas no lugar de parágrafos</li>
                         <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Pergunta para a turma já pensada em cada aula</li>
-                        <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Edita uma vez e reaproveita em todas as turmas</li>
+                        <li class="flex gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-bio-700 flex-shrink-0 mt-0.5"></i> Baixa uma vez e usa em todas as turmas</li>
                     </ul>
                 </div>
             </div>
@@ -559,9 +604,9 @@
     <section class="py-16 sm:py-20 bg-bio-50 border-y border-gray-200">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-12">
-                <span class="text-brand-600 font-bold tracking-widest uppercase text-sm">50 aulas · 10 áreas</span>
+                <span class="text-brand-600 font-bold tracking-widest uppercase text-sm">150 slides · +50 matérias</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mt-2 mb-4">O que tem dentro do BIO SLIDES?</h2>
-                <p class="text-gray-600 text-lg">Os conteúdos que você mais ensina e que mais caem no ENEM, em vestibulares e em concursos.</p>
+                <p class="text-gray-600 text-lg">Mais de 50 matérias divididas em 10 áreas — os conteúdos que você mais ensina e que mais caem no ENEM, em vestibulares e em concursos.</p>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
@@ -766,8 +811,29 @@
                 <button type="button" data-plano="biobox" class="js-comprar btn-pulse w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white font-extrabold py-4 px-10 rounded-full shadow-lg uppercase tracking-wider text-lg">
                     Quero o BIOBOX por R$ 27
                 </button>
-                <p class="text-white/70 text-sm mt-3">Já inclui as 50 aulas do BIO SLIDES.</p>
+                <p class="text-white/70 text-sm mt-3">Já inclui os 150 slides do BIO SLIDES.</p>
             </div>
+        </div>
+    </section>
+
+    <!-- CARROSSEL: O QUE DIZEM OS PROFESSORES -->
+    <section class="py-16 sm:py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-bio-900 uppercase mb-4">O que dizem os professores</h2>
+                <p class="text-gray-600 text-lg">Milhares de professores já reorganizaram suas aulas de Biologia com este material</p>
+            </div>
+            <div class="flex justify-center mb-10">
+                <div class="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 bg-bio-50 border border-bio-100 rounded-full px-5 py-2.5 text-sm">
+                    <span class="font-extrabold text-bio-900 uppercase tracking-wide">Avaliação média</span>
+                    <span class="text-green-500 tracking-tight" aria-hidden="true">★★★★★</span>
+                    <span class="text-gray-600">5,0 · 774 avaliações verificadas</span>
+                </div>
+            </div>
+        </div>
+        <div class="space-y-5">
+            <div class="carrossel" data-carrossel="depoimentos-1" style="--duracao: 70s"></div>
+            <div class="carrossel" data-carrossel="depoimentos-2" style="--duracao: 65s"></div>
         </div>
     </section>
 
@@ -784,7 +850,7 @@
                 <!-- Plano BIO SLIDES -->
                 <div class="w-full md:w-1/2 lg:w-[400px] bg-white rounded-2xl shadow-xl p-6 sm:p-8 flex flex-col text-gray-800 border-t-8 border-gray-300">
                     <h3 class="text-2xl font-bold text-bio-900 mb-2">🧬 BIO SLIDES</h3>
-                    <p class="text-gray-500 mb-6 min-h-[48px] font-semibold">50 aulas de Biologia prontas para projetar</p>
+                    <p class="text-gray-500 mb-6 min-h-[48px] font-semibold">150 slides prontos, +50 matérias</p>
 
                     <div class="mb-6">
                         <span class="text-5xl font-extrabold text-bio-900">R$ 12<span class="text-3xl">,90</span></span>
@@ -794,11 +860,11 @@
                     <ul class="space-y-4 mb-8 flex-grow">
                         <li class="flex items-start">
                             <i data-lucide="check" class="w-5 h-5 text-bio-700 mr-3 flex-shrink-0 mt-0.5"></i>
-                            <span class="text-gray-700">50 apresentações prontas e editáveis</span>
+                            <span class="text-gray-700">150 slides prontos para baixar e projetar</span>
                         </li>
                         <li class="flex items-start">
                             <i data-lucide="check" class="w-5 h-5 text-bio-700 mr-3 flex-shrink-0 mt-0.5"></i>
-                            <span class="text-gray-700">10 áreas: de Citologia a Parasitologia</span>
+                            <span class="text-gray-700">Mais de 50 matérias, de Citologia a Parasitologia</span>
                         </li>
                         <li class="flex items-start">
                             <i data-lucide="check" class="w-5 h-5 text-bio-700 mr-3 flex-shrink-0 mt-0.5"></i>
@@ -893,11 +959,10 @@
                 </details>
                 <details class="group bg-slate-50 rounded-xl border border-slate-200 p-5">
                     <summary class="flex items-center justify-between gap-4 cursor-pointer font-bold text-bio-900">
-                        Consigo editar os slides?
+                        Preciso montar alguma coisa?
                         <i data-lucide="chevron-down" class="seta w-5 h-5 flex-shrink-0 transition-transform"></i>
                     </summary>
-                    <!-- CONFIRMAR: formato real dos arquivos entregues -->
-                    <p class="text-gray-600 mt-3">Sim. As apresentações são editáveis: você pode trocar textos, cores, imagens e a ordem dos slides para deixar a aula com a sua cara.</p>
+                    <p class="text-gray-600 mt-3">Não. Os 150 slides já vêm prontos: é só baixar, abrir e passar na sua aula — no projetor, na TV da sala ou compartilhando a tela na aula online.</p>
                 </details>
                 <details class="group bg-slate-50 rounded-xl border border-slate-200 p-5">
                     <summary class="flex items-center justify-between gap-4 cursor-pointer font-bold text-bio-900">
@@ -911,7 +976,7 @@
                         Qual a diferença entre o BIO SLIDES e o BIOBOX?
                         <i data-lucide="chevron-down" class="seta w-5 h-5 flex-shrink-0 transition-transform"></i>
                     </summary>
-                    <p class="text-gray-600 mt-3">O BIO SLIDES traz as 50 aulas prontas. O BIOBOX PROFESSOR inclui essas 50 aulas e mais de 500 recursos: atividades, questões, avaliações com gabarito, jogos, experimentos, planos de aula e mapas mentais.</p>
+                    <p class="text-gray-600 mt-3">O BIO SLIDES traz 150 slides prontos com mais de 50 matérias. O BIOBOX PROFESSOR inclui esses 150 slides e mais de 500 recursos: atividades, questões, avaliações com gabarito, jogos, experimentos, planos de aula e mapas mentais.</p>
                 </details>
                 <details class="group bg-slate-50 rounded-xl border border-slate-200 p-5">
                     <summary class="flex items-center justify-between gap-4 cursor-pointer font-bold text-bio-900">
@@ -985,7 +1050,7 @@
                 <div id="checkout-upgrade" class="hidden rounded-xl bg-bio-900 text-white p-4">
                     <p class="text-xs font-black uppercase tracking-widest text-brand-200">💎 Upgrade</p>
                     <p class="font-bold mt-1">Leve o BIOBOX PROFESSOR completo por + R$ 14,10</p>
-                    <p class="text-sm text-white/80 mt-1">As 50 aulas + 500 recursos: atividades, provas, jogos, experimentos e planos de aula.</p>
+                    <p class="text-sm text-white/80 mt-1">Os 150 slides + 500 recursos: atividades, provas, jogos, experimentos e planos de aula.</p>
                     <button type="button" id="checkout-upgrade-btn" class="mt-3 w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm uppercase tracking-wide transition">
                         Trocar para o BIOBOX
                     </button>
@@ -1196,6 +1261,90 @@
         }
 
         montarHero();
+
+        // 5. CARROSSÉIS AUTOMÁTICOS (slides e depoimentos)
+        const SLIDES = [
+            ['fotossintese',       'Fotossíntese',                  'Fisiologia vegetal'],
+            ['mitose-meiose',      'Mitose x Meiose',               'Divisão celular'],
+            ['genetica',           'Genética: Herança e Mendel',    'Genética'],
+            ['celula',             'Célula Animal x Vegetal',       'Citologia'],
+            ['cadeia-alimentar',   'Quem Come Quem?',               'Ecologia'],
+            ['diversidade-animal', 'A Diversidade Animal',          'Zoologia e evolução'],
+            ['digestorio',         'Do Alimento à Energia',         'Sistema digestório'],
+            ['circulatorio',       'A Viagem do Sangue pelo Corpo', 'Sistema circulatório'],
+            ['nervoso',            'O Sistema de Comando do Corpo', 'Sistema nervoso']
+        ];
+
+        const DEPOIMENTOS = [
+            ['katriny',     'Katriny Scardini',   '1º ano · Escola pública, SP',     '18 de fevereiro de 2026',
+             'As ilustrações de célula animal e vegetal fazem toda a diferença. Meus alunos finalmente entenderam as organelas sem eu precisar desenhar tudo no quadro.'],
+            ['janaina',     'Janaína Forte',      '3º ano · Rede particular, MG',    '5 de fevereiro de 2026',
+             'Planejo o bimestre inteiro em uma tarde. Os slides de genética já vêm na sequência certa, então só ajusto o ritmo conforme a turma.'],
+            ['jackelinne',  'Jackelinne Nunes',   '1º ao 3º ano · Cursinho, BA',     '22 de janeiro de 2026',
+             'Uso muito os slides de fisiologia e ecologia nas revisões para o vestibular. As imagens prendem a atenção de um jeito que o livro não consegue.'],
+            ['patricia',    'Patrícia Santos',    'Coordenadora de Ciências, RS',    '20 de dezembro de 2025',
+             'Indiquei para toda a equipe de Biologia da escola. Padronizou a qualidade das aulas entre as turmas do Ensino Médio.'],
+            ['ana-beatriz', 'Ana Beatriz Rocha',  '1º ano · Aulas online, CE',       '12 de dezembro de 2025',
+             'Dou aula remota e o material funciona perfeitamente compartilhando a tela. Fotossíntese e citologia ficaram bem mais fáceis de ensinar.'],
+            ['carlos',      'Carlos Eduardo Lima', '2º ano · Escola estadual, PR',   '28 de dezembro de 2025',
+             'A aula sobre mitose e meiose virou a favorita da turma. O comparativo lado a lado deixou tudo muito mais claro.']
+        ];
+
+        function cartaoSlide([arquivo, titulo, tag]) {
+            const el = document.createElement('article');
+            el.className = 'w-[280px] sm:w-[360px] flex-shrink-0 bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden';
+            el.innerHTML = `
+                <img src="assets/slides/${arquivo}.jpg" alt="Slide: ${titulo}" loading="lazy" decoding="async" class="w-full aspect-[16/9] object-cover bg-bio-900">
+                <div class="flex items-center justify-between gap-3 px-4 py-4">
+                    <h3 class="font-bold text-bio-900 leading-snug">${titulo}</h3>
+                    <span class="flex-shrink-0 bg-bio-50 border border-bio-100 text-bio-800 text-[10px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-full">${tag}</span>
+                </div>`;
+            return el;
+        }
+
+        function cartaoDepoimento([foto, nome, turma, data, texto]) {
+            const el = document.createElement('article');
+            el.className = 'w-[300px] sm:w-[360px] flex-shrink-0 bg-white rounded-2xl border border-slate-200 shadow-sm p-5';
+            el.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <img src="assets/professores/${foto}.jpg" alt="" loading="lazy" decoding="async" class="w-11 h-11 rounded-full object-cover bg-bio-100">
+                    <div class="min-w-0">
+                        <p class="font-bold text-bio-900 leading-tight">${nome}</p>
+                        <p class="text-xs text-gray-500">${turma}</p>
+                    </div>
+                </div>
+                <p class="flex items-center gap-2 mt-3 text-xs text-gray-500">
+                    <span class="text-green-500 text-base tracking-tight" aria-label="5 estrelas">★★★★★</span> ${data}
+                </p>
+                <p class="text-sm text-gray-700 leading-relaxed mt-2">${texto}</p>`;
+            return el;
+        }
+
+        /*
+         * Cada faixa recebe os cartões duas vezes: a animação desliza metade do
+         * trilho e recomeça, dando o efeito de carrossel infinito. A cópia fica
+         * escondida de leitores de tela para não ler tudo em dobro.
+         */
+        function montarCarrossel(nome, itens, criar, reverso) {
+            const alvo = document.querySelector(`[data-carrossel="${nome}"]`);
+            const trilho = document.createElement('div');
+            trilho.className = 'carrossel-trilho px-2' + (reverso ? ' reverso' : '');
+            // Cada metade precisa ser mais larga que a tela, senão sobra espaço vazio.
+            let serie = itens;
+            while (serie.length < 8) serie = serie.concat(itens);
+            [false, true].forEach(copia => serie.forEach((item, i) => {
+                const cartao = criar(item);
+                if (copia || i >= itens.length) cartao.setAttribute('aria-hidden', 'true');
+                trilho.appendChild(cartao);
+            }));
+            alvo.appendChild(trilho);
+        }
+
+        montarCarrossel('slides-1', SLIDES.slice(0, 5), cartaoSlide, false);
+        montarCarrossel('slides-2', SLIDES.slice(5), cartaoSlide, true);
+        montarCarrossel('depoimentos-1', DEPOIMENTOS.slice(0, 3), cartaoDepoimento, false);
+        montarCarrossel('depoimentos-2', DEPOIMENTOS.slice(3), cartaoDepoimento, true);
+
         if (window.lucide) lucide.createIcons();
     </script>
 

@@ -1,4 +1,4 @@
-# BIO SLIDES — 50 Aulas de Biologia Prontas
+# BIO SLIDES — 150 Slides de Biologia Prontos
 
 Landing page de vendas com checkout PIX integrado à **ZuckPay**.
 
@@ -8,7 +8,7 @@ api/pix.php              cria a cobrança PIX
 api/status.php           consulta o status do pagamento
 api/webhook.php          recebe a notificação da ZuckPay
 api/diagnostico.php      checagem da integração (protegido por token)
-assets/                  vídeo da primeira dobra (video-hero.mp4)
+assets/                  vídeo da primeira dobra, slides e fotos dos carrosséis
 tools/testar-webhook.php testa a validação de assinatura do webhook (CLI)
 api/_bootstrap.php       validação, CORS e chamada autenticada à API
 api/config.example.php   modelo de configuração
@@ -52,7 +52,7 @@ Planos (em `config.php`):
 
 | id | Produto | Valor |
 |---|---|---|
-| `slides` | 🧬 BIO SLIDES — 50 aulas prontas | R$ 12,90 |
+| `slides` | 🧬 BIO SLIDES — 150 slides prontos, +50 matérias | R$ 12,90 |
 | `biobox` | 💎 BIOBOX PROFESSOR — biblioteca completa | R$ 27,00 |
 
 Order bumps (em `config.php`, chave `bumps`):
@@ -180,11 +180,14 @@ A ZuckPay responde **429 após 5 tentativas em 30 minutos**. Por isso:
    o envio do e-mail com os PDFs ou a liberação da área de membros. A ZuckPay
    pode reenviar a mesma notificação, então grave o `transactionId` e só
    entregue uma vez.
-2. **Formato dos arquivos** — a página diz que as aulas são editáveis. Confirme
-   o formato entregue (PowerPoint, Google Slides, Canva…) e, se quiser, cite-o no
-   FAQ (comentário `<!-- CONFIRMAR -->`).
-3. **Depoimentos** — a página não tem depoimentos nem notificações de "compra
-   recente". Adicione depoimentos reais de professores quando tiver.
+2. **Imagens dos carrosséis** — `assets/slides/*.jpg` (9 slides) e
+   `assets/professores/*.jpg` (fotos dos depoimentos) foram recortadas de
+   capturas de tela. Troque pelos arquivos originais, com o mesmo nome, para
+   ganhar nitidez. Os textos ficam nas listas `SLIDES` e `DEPOIMENTOS` do
+   `index.html`.
+3. **Depoimentos e avaliação** — mantenha só depoimentos reais, com
+   autorização de quem aparece, e atualize a nota/quantidade de avaliações
+   (`5,0 · 774 avaliações verificadas`) conforme os números reais.
 4. **Rate limiting** — não há limite de requisições em `api/pix.php`. Vale pôr
    um limite por IP para evitar geração de cobranças em massa.
 5. **Desativar o diagnóstico** — depois de resolver, apague `api/diagnostico.php`

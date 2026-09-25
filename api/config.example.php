@@ -37,7 +37,7 @@ return [
      */
     'planos' => [
         'slides' => [
-            'nome'       => 'BIO SLIDES — 50 Aulas de Biologia Prontas',
+            'nome'       => 'BIO SLIDES — 150 Slides de Biologia Prontos',
             'valor'      => 12.90,
             'product_id' => 0, // TROCAR pelo id do produto no painel
         ],
