@@ -1,4 +1,4 @@
-# BIO SLIDES — 150 Slides de Biologia Prontos
+# BIO SLIDES — +250 Slides de Biologia Prontos
 
 Landing page de vendas com checkout PIX integrado à **ZuckPay**.
 
@@ -49,7 +49,7 @@ Planos e bumps (preços em `api/_zuckpay.js`):
 
 | id | Produto | Valor |
 |---|---|---|
-| `slides` | 🧬 BIO SLIDES — 150 slides prontos, +50 matérias | R$ 12,90 |
+| `slides` | 🧬 BIO SLIDES — +250 slides prontos, +50 matérias | R$ 12,90 |
 | `biobox` | 💎 BIOBOX PROFESSOR — biblioteca completa | R$ 27,00 |
 
 Order bumps (em `api/_zuckpay.js`):

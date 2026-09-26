@@ -39,7 +39,7 @@ export function config() {
  * os ids, e qualquer valor vindo do cliente é ignorado.
  */
 export const PLANOS = {
-    slides: { nome: 'BIO SLIDES — 150 Slides de Biologia Prontos', valor: 12.90, productId: env('ZUCKPAY_PRODUCT_ID_SLIDES') },
+    slides: { nome: 'BIO SLIDES — +250 Slides de Biologia Prontos', valor: 12.90, productId: env('ZUCKPAY_PRODUCT_ID_SLIDES') },
     biobox: { nome: 'BIOBOX PROFESSOR — Biblioteca Completa',      valor: 27.00, productId: env('ZUCKPAY_PRODUCT_ID_BIOBOX') },
 };
 
