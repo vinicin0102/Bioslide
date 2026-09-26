@@ -1004,6 +1004,7 @@
         <div class="container mx-auto px-6 text-center text-xs sm:text-sm text-gray-400">
             <p>© 2026 BIO SLIDES. Todos os direitos reservados.</p>
             <p class="mt-2">Material de apoio didático para professores de Biologia.</p>
+            <p class="mt-3 text-[11px] text-gray-500 max-w-xl mx-auto">Para melhorar esta página registramos, de forma anônima, como ela é usada (rolagem, cliques e a navegação na tela). O que você digita nos campos não é gravado.</p>
         </div>
     </footer>
 
@@ -1114,7 +1115,7 @@
                     <i data-lucide="check" class="w-8 h-8 text-green-600"></i>
                 </div>
                 <h4 class="text-2xl font-extrabold text-bio-900 mb-2">Pagamento confirmado!</h4>
-                <p class="text-gray-600">Enviamos o acesso para <strong id="pago-email" class="text-bio-900"></strong>. Se não achar, confira a caixa de spam.</p>
+                <p class="text-gray-600">Enviamos o acesso para <strong id="pago-email" class="rr-mask text-bio-900"></strong>. Se não achar, confira a caixa de spam.</p>
             </div>
 
         </div>
@@ -1206,6 +1207,7 @@
         function despedida() {
             if (!saiuEnviado) { saiuEnviado = true; rastro('saiu'); }
             enviar(true);
+            descarregarGravacao(true);
         }
         document.addEventListener('visibilitychange', function () {
             if (document.visibilityState === 'hidden') despedida();
@@ -1267,6 +1269,85 @@
                 rastro('faq', { pergunta: e.target.querySelector('summary').textContent.trim().slice(0, 60) });
             }
         }, true);
+
+        /*
+         * GRAVAÇÃO DE TELA (rrweb) — para assistir à visita no painel.
+         * Carrega depois da página, sem atrasar nada. Tudo o que é digitado
+         * nos campos sai mascarado (****), e elementos com a classe "rr-mask"
+         * têm o texto escondido.
+         */
+        const GRAVAR_PORCENTAGEM = 100;   // % das visitas gravadas
+        const LIMITE_BYTES = 7.5 * 1024 * 1024;
+        const LIMITE_MS = 30 * 60 * 1000;
+        let gravacao = [];
+        let pararGravacao = null;
+        let bytesGravados = 0;
+        const inicioGravacao = Date.now();
+        let seqGravacao = 0;
+        try { seqGravacao = Number(sessionStorage.getItem('bs_seq') || 0); } catch (_) {}
+
+        function descarregarGravacao(saindo) {
+            if (!gravacao.length) return;
+            const eventos = gravacao.splice(0);
+            const seq = seqGravacao++;
+            try { sessionStorage.setItem('bs_seq', String(seqGravacao)); } catch (_) {}
+            const texto = JSON.stringify(eventos);
+            bytesGravados += texto.length;
+            if (pararGravacao && (bytesGravados > LIMITE_BYTES || Date.now() - inicioGravacao > LIMITE_MS)) {
+                pararGravacao(); pararGravacao = null;
+            }
+            const url = '/api/gravacao?sid=' + sid + '&seq=' + seq;
+
+            // Na saída não dá tempo de compactar: vai direto pelo beacon.
+            if (saindo || !window.CompressionStream) {
+                const blob = new Blob([texto], { type: 'application/json' });
+                if (saindo && navigator.sendBeacon && texto.length < 60000) navigator.sendBeacon(url + '&z=0', blob);
+                else fetch(url + '&z=0', { method: 'POST', body: blob, keepalive: texto.length < 60000 }).catch(function () {});
+                return;
+            }
+            new Response(new Blob([texto]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer()
+                .then(function (compactado) {
+                    return fetch(url + '&z=1', { method: 'POST', headers: { 'Content-Type': 'application/octet-stream' }, body: compactado });
+                })
+                .catch(function () {});
+        }
+
+        function comecarGravacao() {
+            if (!window.rrwebRecord) return;
+            pararGravacao = rrwebRecord.record({
+                emit: function (evento) {
+                    gravacao.push(evento);
+                    if (gravacao.length >= 400) descarregarGravacao(false);
+                },
+                maskAllInputs: true,
+                maskTextClass: 'rr-mask',
+                blockClass: 'rr-block',
+                slimDOMOptions: 'all',
+                recordCanvas: false,
+                collectFonts: false,
+                sampling: { scroll: 150, media: 800, input: 'last' }
+            });
+            setInterval(function () { descarregarGravacao(false); }, 5000);
+        }
+
+        let gravar = true;
+        try {
+            let sorteio = sessionStorage.getItem('bs_gravar');
+            if (sorteio === null) { sorteio = Math.random() * 100 < GRAVAR_PORCENTAGEM ? '1' : '0'; sessionStorage.setItem('bs_gravar', sorteio); }
+            gravar = sorteio === '1';
+        } catch (_) {}
+
+        if (gravar) {
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    const script = document.createElement('script');
+                    script.src = '/assets/vendor/rrweb-record-2.1.6.min.js';
+                    script.async = true;
+                    script.onload = comecarGravacao;
+                    document.head.appendChild(script);
+                }, 800);
+            });
+        }
     })();
     </script>
 

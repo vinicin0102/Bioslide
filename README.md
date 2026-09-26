@@ -11,7 +11,10 @@ api/saude.js        checagem da integração (abra /api/saude)
 api/_banco.js       conexão com o Postgres (Supabase) e criação das tabelas
 api/rastro.js       coleta o comportamento dos visitantes (sem dados pessoais)
 api/painel.js       dados do painel, protegido por senha
-painel.html         painel: funil, gargalo, vídeo, ao vivo e linha do tempo
+painel.html         painel: funil, gargalo, vídeo, ao vivo, linha do tempo e gravação de tela
+api/gravacao.js     recebe e entrega as gravações de tela (rrweb)
+api/_senha.js       confere a senha do painel
+assets/vendor/      rrweb (gravador e player), licença MIT
 api/_zuckpay.js     planos, bumps, validação e chamada autenticada à API
 assets/             vídeo da primeira dobra, slides e fotos dos carrosséis
 ```
@@ -100,6 +103,25 @@ Mostra onde cada visitante para e o que está fazendo agora:
 - **Ao vivo** — quem está na página agora, em que seção, de qual anúncio veio.
 - **Linha do tempo** — clique num visitante para ver tudo o que ele fez.
 
+- **Gravação de tela** — 🎥 na tabela ou *Assistir gravação* na linha do tempo
+  reproduz a visita como um vídeo (mouse, toques, rolagem, cliques). Em quem
+  está na página agora, *Assistir ao vivo* acompanha com alguns segundos de
+  atraso.
+
+Sobre a gravação:
+
+- Usa o [rrweb](https://github.com/rrweb-io/rrweb) (MIT), hospedado em
+  `assets/vendor/`. Não é um vídeo: são os eventos da página, compactados
+  (~5–15 KB por minuto de visita).
+- **Tudo o que é digitado sai como `****`** — nome, CPF, e-mail e telefone
+  nunca saem do navegador. Elementos com a classe `rr-mask` têm o texto
+  escondido; com `rr-block`, somem da gravação.
+- O vídeo da página aparece parado na gravação (o rrweb não grava o conteúdo
+  do vídeo, só play/pausa).
+- Gravações ficam 3 dias. Limite de 30 min / ~8 MB por visita.
+  `GRAVAR_PORCENTAGEM` no `index.html` controla quantas visitas são gravadas.
+- O rodapé da página avisa que a navegação é registrada de forma anônima (LGPD).
+
 Para ativar, no projeto do Vercel:
 
 1. *Storage > Supabase* conectado ao projeto `bioslide` (cria a `POSTGRES_URL`).
@@ -107,7 +129,7 @@ Para ativar, no projeto do Vercel:
 3. **Redeploy**.
 
 As tabelas são criadas sozinhas no primeiro acesso, no schema `bioslide`
-(`sessoes`, `eventos`, `funil`). Esse schema não é exposto pela API pública do
+(`sessoes`, `eventos`, `funil`, `gravacoes`). Esse schema não é exposto pela API pública do
 Supabase e as tabelas têm RLS ligado: só as funções do site, conectadas com a
 `POSTGRES_URL`, leem e gravam.
 

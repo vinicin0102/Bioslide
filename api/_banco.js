@@ -85,6 +85,18 @@ export async function banco() {
                 n     int  NOT NULL DEFAULT 0,
                 PRIMARY KEY (dia, etapa)
             );
+            ALTER TABLE bioslide.sessoes ADD COLUMN IF NOT EXISTS gravacao boolean NOT NULL DEFAULT false;
+            CREATE TABLE IF NOT EXISTS bioslide.gravacoes (
+                sid     text   NOT NULL,
+                seq     int    NOT NULL,
+                t       bigint NOT NULL,
+                gzip    boolean NOT NULL,
+                tamanho int    NOT NULL,
+                dados   bytea  NOT NULL,
+                PRIMARY KEY (sid, seq)
+            );
+            CREATE INDEX IF NOT EXISTS gravacoes_t ON bioslide.gravacoes (t);
+            ALTER TABLE bioslide.gravacoes ENABLE ROW LEVEL SECURITY;
             ALTER TABLE bioslide.sessoes ENABLE ROW LEVEL SECURITY;
             ALTER TABLE bioslide.eventos ENABLE ROW LEVEL SECURITY;
             ALTER TABLE bioslide.funil   ENABLE ROW LEVEL SECURITY;
@@ -100,6 +112,9 @@ export function dataBR(ms = Date.now()) {
 }
 
 export const DIAS_SESSAO = 7;
+
+/** Gravações de tela pesam mais: ficam 3 dias. */
+export const DIAS_GRAVACAO = 3;
 
 /**
  * Marca etapas novas da sessão e soma no funil do dia — cada etapa conta

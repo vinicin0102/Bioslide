@@ -6,23 +6,14 @@
  *
  * Protegido pela senha da variável PAINEL_SENHA (header Authorization: Bearer).
  */
-import crypto from 'node:crypto';
 import { bancoConfigurado, banco, dataBR } from './_banco.js';
+import { senhaConfere } from './_senha.js';
 
 function json(status, dados) {
     return new Response(JSON.stringify(dados), {
         status,
         headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' },
     });
-}
-
-function senhaConfere(request) {
-    const senha = process.env.PAINEL_SENHA || '';
-    const enviada = (request.headers.get('authorization') || '').replace(/^Bearer\s+/i, '');
-    if (!senha || !enviada) return false;
-    const a = crypto.createHash('sha256').update(senha).digest();
-    const b = crypto.createHash('sha256').update(enviada).digest();
-    return crypto.timingSafeEqual(a, b);
 }
 
 const DATA = /^\d{4}-\d{2}-\d{2}$/;
@@ -37,6 +28,7 @@ function resumoSessao(h) {
         video: Number(h.video || 0), viuVideo: (h.etapas || []).includes('video_play'), eventos: Number(h.eventos || 0),
         origem: h.origem || '', campanha: h.campanha || '', anuncio: h.anuncio || '', referencia: h.referencia || '',
         dispositivo: h.dispositivo || '', cidade: h.cidade || '', uf: h.uf || '',
+        gravacao: Boolean(h.gravacao),
     };
 }
 

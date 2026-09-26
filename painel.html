@@ -146,6 +146,22 @@
         </aside>
     </div>
 
+    <!-- PLAYER DA GRAVAÇÃO -->
+    <div id="player" class="fixed inset-0 z-[60] hidden bg-black/85 flex-col items-center justify-center p-3">
+        <div class="w-full max-w-[1100px] flex items-center justify-between gap-3 text-white mb-2">
+            <div class="min-w-0">
+                <p class="font-extrabold flex items-center gap-2">
+                    Gravação da visita
+                    <span id="player-vivo" class="hidden text-[10px] font-black uppercase bg-red-600 rounded-full px-2 py-0.5">● ao vivo</span>
+                </p>
+                <p id="player-info" class="text-xs text-white/70 truncate"></p>
+            </div>
+            <button id="player-fechar" class="text-white/70 hover:text-white text-3xl leading-none" aria-label="Fechar">×</button>
+        </div>
+        <div id="player-alvo" class="bg-white rounded-lg overflow-hidden"></div>
+        <p id="player-msg" class="text-white/80 text-sm mt-3"></p>
+    </div>
+
     <script>
     (function () {
         'use strict';
@@ -192,8 +208,8 @@
             return partes.join(' · ') + (s.anuncio ? ` · ${s.anuncio}` : '');
         }
 
-        async function api(params) {
-            const r = await fetch('/api/painel?' + new URLSearchParams(params), { headers: { Authorization: 'Bearer ' + senha } });
+        async function api(params, caminho) {
+            const r = await fetch((caminho || '/api/painel') + '?' + new URLSearchParams(params), { headers: { Authorization: 'Bearer ' + senha } });
             const corpo = await r.json().catch(() => ({}));
             if (r.status === 401) { sair('Senha incorreta.'); throw new Error('401'); }
             if (!r.ok) throw new Error(corpo.erro || 'Erro ' + r.status);
@@ -337,6 +353,7 @@
                     </div>
                     <p class="text-xs text-gray-600 mt-1">${esc(ETAPA_COMPRA[Math.max(0, s.compra)])}${s.plano ? ' · ' + esc(s.plano) : ''} · rolou ${s.rolagem}% · vídeo ${s.viuVideo ? s.video + '%' : 'não'}</p>
                     <p class="text-[11px] text-gray-400 mt-1 truncate">${esc(s.dispositivo)}${s.cidade ? ' · ' + esc(s.cidade) + (s.uf ? '/' + esc(s.uf) : '') : ''} · ${esc(origem(s))}</p>
+                    ${s.gravacao ? `<span data-assistir="${esc(s.sid)}" class="mt-2 inline-flex items-center gap-1 text-xs font-bold text-white bg-red-600 hover:bg-red-700 rounded-full px-3 py-1">👁 Assistir ao vivo</span>` : ''}
                 </button>`).join('') : '<p class="text-sm text-gray-400">Ninguém na página neste momento.</p>';
 
             // Sessões do período
@@ -347,7 +364,7 @@
                 return `
                     <tr data-sessao="${esc(s.sid)}" class="border-b border-slate-100 hover:bg-slate-50 cursor-pointer">
                         <td class="px-5 py-2 whitespace-nowrap text-gray-600">${hora(s.inicio)}</td>
-                        <td class="px-2 py-2 font-semibold text-bio-900">${esc(NOME_SECAO[s.secao] || '—')}</td>
+                        <td class="px-2 py-2 font-semibold text-bio-900">${s.gravacao ? `<span data-assistir="${esc(s.sid)}" title="Assistir gravação" class="cursor-pointer mr-1">🎥</span>` : ''}${esc(NOME_SECAO[s.secao] || '—')}</td>
                         <td class="px-2 py-2">${s.rolagem}%</td>
                         <td class="px-2 py-2">${s.viuVideo ? s.video + '%' : '—'}</td>
                         <td class="px-2 py-2 whitespace-nowrap">${status}</td>
@@ -393,7 +410,8 @@
             try {
                 const r = await api({ sessao: sid });
                 const s = r.sessao;
-                $('gaveta-resumo').textContent = [hora(s.inicio), s.dispositivo, s.cidade, origem(s)].filter(Boolean).join(' · ');
+                $('gaveta-resumo').innerHTML = esc([hora(s.inicio), s.dispositivo, s.cidade, origem(s)].filter(Boolean).join(' · '))
+                    + (s.gravacao ? `<br><button data-assistir="${esc(s.sid)}" class="mt-3 inline-flex items-center gap-2 bg-bio-900 hover:bg-bio-800 text-white text-sm font-bold rounded-lg px-4 py-2">▶ Assistir gravação da tela</button>` : '<br><span class="text-gray-400">Sem gravação de tela.</span>');
                 const inicio = r.eventos.length ? r.eventos[0].t : s.inicio;
                 $('gaveta-eventos').innerHTML = r.eventos.map(e => {
                     const texto = descrever(e);
@@ -410,11 +428,140 @@
         }
 
         document.addEventListener('click', e => {
+            const assistir = e.target.closest('[data-assistir]');
+            if (assistir) { e.stopPropagation(); abrirGravacao(assistir.getAttribute('data-assistir')); return; }
             const alvo = e.target.closest('[data-sessao]');
             if (alvo) abrirSessao(alvo.getAttribute('data-sessao'));
             if (e.target.closest('[data-fechar]')) $('gaveta').classList.add('hidden');
         });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') $('gaveta').classList.add('hidden'); });
+        document.addEventListener('keydown', e => {
+            if (e.key !== 'Escape') return;
+            if (!$('player').classList.contains('hidden')) fecharGravacao();
+            else $('gaveta').classList.add('hidden');
+        });
+
+        /* ---------- gravação de tela (rrweb-player) ---------- */
+        let recursosPlayer = null;
+        let player = null, timerGravacao = null, gravacaoAtual = null;
+
+        function carregarRecursosPlayer() {
+            if (!recursosPlayer) {
+                recursosPlayer = new Promise((ok, falha) => {
+                    const css = document.createElement('link');
+                    css.rel = 'stylesheet';
+                    css.href = '/assets/vendor/rrweb-player-2.1.6.min.css';
+                    document.head.appendChild(css);
+                    const js = document.createElement('script');
+                    js.src = '/assets/vendor/rrweb-player-2.1.6.min.js';
+                    js.onload = ok;
+                    js.onerror = () => { recursosPlayer = null; falha(new Error('Não foi possível carregar o player.')); };
+                    document.head.appendChild(js);
+                });
+            }
+            return recursosPlayer;
+        }
+
+        async function descompactar(parte) {
+            const bytes = Uint8Array.from(atob(parte.b64), c => c.charCodeAt(0));
+            const texto = parte.gzip
+                ? await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text()
+                : new TextDecoder().decode(bytes);
+            return JSON.parse(texto);
+        }
+
+        /** Busca todos os pedaços depois de "apos" (paginado pelo servidor). */
+        async function buscarGravacao(sid, apos) {
+            const eventos = [];
+            let ultimoSeq = apos, info;
+            do {
+                info = await api({ sid, apos: ultimoSeq }, '/api/gravacao');
+                for (const parte of info.partes) {
+                    eventos.push(...await descompactar(parte));
+                    ultimoSeq = parte.seq;
+                }
+            } while (info.mais);
+            return { eventos, ultimoSeq, aoVivo: info.aoVivo };
+        }
+
+        function fecharGravacao() {
+            clearInterval(timerGravacao);
+            timerGravacao = null;
+            gravacaoAtual = null;
+            if (player && player.$destroy) player.$destroy();
+            player = null;
+            $('player-alvo').innerHTML = '';
+            $('player').classList.add('hidden');
+            $('player').classList.remove('flex');
+        }
+        $('player-fechar').addEventListener('click', fecharGravacao);
+
+        async function abrirGravacao(sid) {
+            fecharGravacao();
+            gravacaoAtual = sid;
+            $('player').classList.remove('hidden');
+            $('player').classList.add('flex');
+            $('player-vivo').classList.add('hidden');
+            $('player-info').textContent = '';
+            $('player-msg').textContent = 'Carregando gravação…';
+
+            try {
+                const [, gravacao] = await Promise.all([carregarRecursosPlayer(), buscarGravacao(sid, -1)]);
+                if (gravacaoAtual !== sid) return;
+                const eventos = gravacao.eventos.sort((a, b) => a.timestamp - b.timestamp);
+                if (eventos.length < 2 || !eventos.some(e => e.type === 2)) {
+                    $('player-msg').textContent = 'A gravação ainda não tem dados suficientes. Tente de novo em alguns segundos.';
+                    return;
+                }
+
+                const sessao = (dados?.recentes || []).concat(dados?.aoVivo || []).find(s => s.sid === sid);
+                if (sessao) $('player-info').textContent = [hora(sessao.inicio), sessao.dispositivo, sessao.cidade, origem(sessao)].filter(Boolean).join(' · ');
+
+                const largura = Math.min(window.innerWidth - 32, 1100);
+                const altura = Math.max(240, Math.min(window.innerHeight - 190, 700));
+                const Player = window.rrwebPlayer.default || window.rrwebPlayer.Player || window.rrwebPlayer;
+                player = new Player({
+                    target: $('player-alvo'),
+                    props: {
+                        events: eventos, width: largura, height: altura,
+                        autoPlay: true, skipInactive: true, speedOption: [1, 2, 4, 8],
+                        mouseTail: { strokeStyle: '#F97316', lineWidth: 3 }
+                    }
+                });
+                $('player-msg').textContent = gravacao.aoVivo
+                    ? 'Acompanhando ao vivo — a tela chega com alguns segundos de atraso.'
+                    : 'Campos digitados aparecem como **** (dados pessoais não são gravados).';
+
+                // Ao vivo: busca os pedaços novos a cada 4s e continua a reprodução.
+                if (gravacao.aoVivo) {
+                    $('player-vivo').classList.remove('hidden');
+                    let terminou = false;
+                    player.addEventListener('finish', () => { terminou = true; });
+                    const total = player.getMetaData().totalTime;
+                    player.goto(Math.max(0, total - 3000), true);
+
+                    let ultimoSeq = gravacao.ultimoSeq;
+                    timerGravacao = setInterval(async () => {
+                        try {
+                            const novos = await buscarGravacao(sid, ultimoSeq);
+                            if (gravacaoAtual !== sid || !player) return;
+                            ultimoSeq = novos.ultimoSeq;
+                            if (novos.eventos.length) {
+                                const antes = player.getMetaData().totalTime;
+                                novos.eventos.sort((a, b) => a.timestamp - b.timestamp).forEach(e => player.addEvent(e));
+                                if (terminou) { terminou = false; player.goto(Math.max(0, antes - 300), true); }
+                            }
+                            if (!novos.aoVivo) {
+                                clearInterval(timerGravacao);
+                                $('player-vivo').classList.add('hidden');
+                                $('player-msg').textContent = 'O visitante saiu da página. A gravação continua disponível.';
+                            }
+                        } catch (_) { /* tenta de novo no próximo ciclo */ }
+                    }, 4000);
+                }
+            } catch (erro) {
+                $('player-msg').textContent = erro.message === '401' ? '' : 'Erro: ' + erro.message;
+            }
+        }
 
         if (senha) iniciar();
     })();
