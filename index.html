@@ -330,7 +330,7 @@
     </div>
 
     <!-- 1. HERO SECTION -->
-    <header class="hero-gradient text-bio-900 relative overflow-hidden">
+    <header data-etapa="topo" class="hero-gradient text-bio-900 relative overflow-hidden">
         <!-- Elementos de fundo decorativos -->
         <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
         <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
@@ -552,7 +552,7 @@
     </section>
 
     <!-- CARROSSEL: SLIDES PRONTOS -->
-    <section class="py-16 sm:py-20 bg-white overflow-hidden">
+    <section data-etapa="slides" class="py-16 sm:py-20 bg-white overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-10">
                 <span class="text-brand-600 font-bold tracking-widest uppercase text-sm">Veja por dentro</span>
@@ -573,7 +573,7 @@
     </section>
 
     <!-- 2. A DOR: TEMPO -->
-    <section class="py-16 sm:py-20 bg-white">
+    <section data-etapa="dor" class="py-16 sm:py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mb-4">Você não precisa de mais conteúdo. <span class="text-brand-600">Precisa de tempo.</span></h2>
@@ -604,7 +604,7 @@
     </section>
 
     <!-- 3. O QUE TEM DENTRO -->
-    <section class="py-16 sm:py-20 bg-bio-50 border-y border-gray-200">
+    <section data-etapa="conteudo" class="py-16 sm:py-20 bg-bio-50 border-y border-gray-200">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="text-brand-600 font-bold tracking-widest uppercase text-sm">+250 slides · +50 matérias</span>
@@ -668,7 +668,7 @@
     </section>
 
     <!-- 4. COMO É CADA AULA -->
-    <section class="py-16 sm:py-20 bg-white">
+    <section data-etapa="estrutura" class="py-16 sm:py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mb-4">Cada aula já vem com a sequência didática pronta</h2>
@@ -724,7 +724,7 @@
     </section>
 
     <!-- 5. PARA QUEM É -->
-    <section class="py-16 sm:py-20 bg-bio-50 border-y border-gray-200">
+    <section data-etapa="publico" class="py-16 sm:py-20 bg-bio-50 border-y border-gray-200">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mb-4">Serve para a sua sala de aula</h2>
@@ -757,7 +757,7 @@
     </section>
 
     <!-- 6. BIOBOX PROFESSOR (PREMIUM) -->
-    <section class="py-16 sm:py-20 bg-bio-900 text-white relative overflow-hidden">
+    <section data-etapa="biobox" class="py-16 sm:py-20 bg-bio-900 text-white relative overflow-hidden">
         <div class="absolute top-[-20%] right-[-10%] w-96 h-96 bg-brand-500 rounded-full filter blur-3xl opacity-20"></div>
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-12">
@@ -820,7 +820,7 @@
     </section>
 
     <!-- CARROSSEL: O QUE DIZEM OS PROFESSORES -->
-    <section class="py-16 sm:py-20 bg-white overflow-hidden">
+    <section data-etapa="depoimentos" class="py-16 sm:py-20 bg-white overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-8">
                 <h2 class="text-3xl md:text-5xl font-extrabold text-bio-900 uppercase mb-4">O que dizem os professores</h2>
@@ -841,7 +841,7 @@
     </section>
 
     <!-- 7. PLANOS -->
-    <section id="planos" class="py-20 sm:py-24 bg-brand-50 text-bio-900 relative">
+    <section data-etapa="planos" id="planos" class="py-20 sm:py-24 bg-brand-50 text-bio-900 relative">
         <div class="container mx-auto px-5 sm:px-6 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h2 class="text-3xl md:text-5xl font-extrabold text-bio-900 mb-6">Escolha como quer preparar suas aulas</h2>
@@ -946,7 +946,7 @@
     </section>
 
     <!-- 8. PERGUNTAS FREQUENTES -->
-    <section class="py-16 sm:py-20 bg-white border-t border-gray-200">
+    <section data-etapa="faq" class="py-16 sm:py-20 bg-white border-t border-gray-200">
         <div class="container mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-10">
                 <h2 class="text-3xl md:text-4xl font-bold text-bio-900 mb-4">Perguntas frequentes</h2>
@@ -1000,7 +1000,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-bio-900 text-white py-8 border-t border-bio-800">
+    <footer data-etapa="rodape" class="bg-bio-900 text-white py-8 border-t border-bio-800">
         <div class="container mx-auto px-6 text-center text-xs sm:text-sm text-gray-400">
             <p>© 2026 BIO SLIDES. Todos os direitos reservados.</p>
             <p class="mt-2">Material de apoio didático para professores de Biologia.</p>
@@ -1119,6 +1119,156 @@
 
         </div>
     </div>
+
+    <!-- RASTREAMENTO DO PAINEL (/painel.html) — sem dados pessoais -->
+    <script>
+    (function () {
+        'use strict';
+        // Robôs e navegadores automatizados não entram no painel.
+        if (navigator.webdriver || /bot|crawler|spider|facebookexternalhit|lighthouse/i.test(navigator.userAgent)) {
+            window.rastro = function () {};
+            return;
+        }
+
+        function novoId() {
+            return (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2))
+                   .replace(/[^a-zA-Z0-9-]/g, '');
+        }
+        function lerOuCriar(armazem, chave) {
+            try {
+                let v = armazem.getItem(chave);
+                if (!v) { v = novoId(); armazem.setItem(chave, v); }
+                return v;
+            } catch (_) { return novoId(); }
+        }
+
+        const sid = lerOuCriar(sessionStorage, 'bs_sid');   // uma por aba
+        const vid = lerOuCriar(localStorage, 'bs_vid');     // uma por navegador
+        const fila = [];
+        let contextoEnviado = false;
+        let maxRolagem = 0;
+
+        function rolagem() {
+            const doc = document.documentElement;
+            const total = doc.scrollHeight - window.innerHeight;
+            const pct = total > 0 ? Math.round((window.scrollY / total) * 100) : 100;
+            maxRolagem = Math.max(maxRolagem, Math.min(100, pct));
+            return maxRolagem;
+        }
+
+        function contexto() {
+            const url = new URLSearchParams(location.search);
+            let referencia = '';
+            try { referencia = document.referrer ? new URL(document.referrer).hostname : ''; } catch (_) {}
+            return {
+                origem: url.get('utm_source') || (url.get('fbclid') ? 'facebook' : '') || referencia || 'direto',
+                campanha: url.get('utm_campaign') || '',
+                anuncio: url.get('utm_content') || '',
+                meio: url.get('utm_medium') || '',
+                referencia: referencia,
+                dispositivo: window.matchMedia('(pointer: coarse)').matches ? 'celular' : 'computador',
+                largura: window.innerWidth
+            };
+        }
+
+        function enviar(usarBeacon) {
+            if (!fila.length) return;
+            const corpo = { sid: sid, vid: vid, eventos: fila.splice(0, 60) };
+            if (!contextoEnviado) { corpo.ctx = contexto(); contextoEnviado = true; }
+            const dados = JSON.stringify(corpo);
+            if (usarBeacon && navigator.sendBeacon) {
+                navigator.sendBeacon('/api/rastro', new Blob([dados], { type: 'application/json' }));
+            } else {
+                fetch('/api/rastro', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: dados, keepalive: true }).catch(function () {});
+            }
+        }
+
+        window.rastro = function (tipo, d) {
+            fila.push({ t: Date.now(), tipo: tipo, d: Object.assign({ rolagem: rolagem() }, d || {}) });
+            // Ações importantes vão na hora; o resto segue no próximo envio.
+            if (/^(checkout_aberto|pix_gerado|pago|pix_copiado)$/.test(tipo)) enviar(false);
+        };
+
+        rastro('page_view');
+        enviar(false);
+
+        // Envio em lote a cada 10s; um "ping" a cada 20s mantém o "ao vivo".
+        let ultimoPing = Date.now();
+        setInterval(function () {
+            if (document.visibilityState !== 'visible') return;
+            if (Date.now() - ultimoPing >= 20000) { rastro('ping'); ultimoPing = Date.now(); }
+            enviar(false);
+        }, 10000);
+
+        // Saída: o navegador dispara "visibilitychange" e "pagehide" em
+        // sequência; o primeiro já leva a fila inteira junto com o "saiu".
+        let saiuEnviado = false;
+        function despedida() {
+            if (!saiuEnviado) { saiuEnviado = true; rastro('saiu'); }
+            enviar(true);
+        }
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'hidden') despedida();
+            else { saiuEnviado = false; rastro('voltou'); enviar(false); }
+        });
+        window.addEventListener('pagehide', despedida);
+
+        // Seção atual: a que cruza o meio da tela.
+        let secaoAtual = '';
+
+        // O rodapé é baixo e nunca cruza o meio da tela: conta ao chegar ao fim.
+        window.addEventListener('scroll', function () {
+            if (rolagem() >= 97 && secaoAtual !== 'rodape') {
+                secaoAtual = 'rodape';
+                rastro('secao', { nome: 'rodape' });
+            }
+        }, { passive: true });
+        const observador = new IntersectionObserver(function (itens) {
+            itens.forEach(function (item) {
+                const nome = item.target.getAttribute('data-etapa');
+                if (item.isIntersecting && nome !== secaoAtual) {
+                    secaoAtual = nome;
+                    rastro('secao', { nome: nome });
+                }
+            });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+        document.querySelectorAll('[data-etapa]').forEach(function (el) { observador.observe(el); });
+
+        // Vídeo: play, pausa, 25/50/75/100% e fim.
+        const marcos = {};
+        document.addEventListener('play', function (e) {
+            if (e.target.tagName === 'VIDEO') rastro('video_play', { seg: Math.round(e.target.currentTime) });
+        }, true);
+        document.addEventListener('pause', function (e) {
+            const v = e.target;
+            if (v.tagName === 'VIDEO' && !v.ended) rastro('video_pause', { seg: Math.round(v.currentTime) });
+        }, true);
+        document.addEventListener('timeupdate', function (e) {
+            const v = e.target;
+            if (v.tagName !== 'VIDEO' || !v.duration) return;
+            const pct = (v.currentTime / v.duration) * 100;
+            [25, 50, 75].forEach(function (m) {
+                if (pct >= m && !marcos[m]) { marcos[m] = true; rastro('video_progresso', { pct: m }); }
+            });
+        }, true);
+        document.addEventListener('ended', function (e) {
+            if (e.target.tagName !== 'VIDEO') return;
+            if (!marcos[100]) { marcos[100] = true; rastro('video_progresso', { pct: 100 }); }
+            rastro('video_fim');
+        }, true);
+
+        // Cliques nos botões de compra e perguntas abertas no FAQ.
+        document.addEventListener('click', function (e) {
+            const alvo = e.target.closest('a[href="#planos"], .js-comprar');
+            if (alvo) rastro('clique', { botao: alvo.textContent.trim().replace(/\s+/g, ' ').slice(0, 60), secao: secaoAtual });
+        }, true);
+        document.addEventListener('toggle', function (e) {
+            if (e.target.tagName === 'DETAILS' && e.target.open) {
+                rastro('faq', { pergunta: e.target.querySelector('summary').textContent.trim().slice(0, 60) });
+            }
+        }, true);
+    })();
+    </script>
 
     <!-- SCRIPTS DINÂMICOS DA PÁGINA -->
     <script>
@@ -1401,6 +1551,13 @@
         let pedido = null;              // id do pedido, estável entre tentativas (idempotência)
         const marcados = new Set();     // bumps escolhidos
         const compraRegistrada = {};    // evita Purchase duplicado
+        let formIniciado = false;       // primeiro campo tocado (painel)
+        form.addEventListener('focusin', e => {
+            if (!formIniciado && e.target.matches('input[type="text"], input[type="email"], input[type="tel"]')) {
+                formIniciado = true;
+                rastro('form_inicio', { campo: e.target.name });
+            }
+        });
 
         /* ---------- atribuição (UTMs, Meta, Google, TikTok) ---------- */
         function lerCookie(nome) {
@@ -1480,6 +1637,7 @@
                 pintar();
                 caixa.addEventListener('change', () => {
                     caixa.checked ? marcados.add(b.id) : marcados.delete(b.id);
+                    rastro('bump', { id: b.id, marcado: caixa.checked });
                     pintar();
                     atualizarTotal();
                 });
@@ -1500,6 +1658,7 @@
         document.getElementById('checkout-upgrade-btn').addEventListener('click', () => {
             definirPlano('biobox');
             if (window.fbq) fbq('trackCustom', 'UpgradeBiobox');
+            rastro('upgrade', { plano: 'biobox' });
         });
 
         /* ---------- abrir / fechar ---------- */
@@ -1523,6 +1682,8 @@
             document.body.style.overflow = 'hidden';
             if (window.lucide) lucide.createIcons();
             if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: PLANOS[plano].nome, value: PLANOS[plano].valor, currency: 'BRL' });
+            formIniciado = false;
+            rastro('checkout_aberto', { plano: plano, valor: PLANOS[plano].valor });
             if (window.oaiq && !window.__oaiCheckoutRegistrado) {
                 window.__oaiCheckoutRegistrado = true;
                 oaiq('measure', 'checkout_started', { type: 'contents' });
@@ -1530,6 +1691,10 @@
         }
 
         function fechar() {
+            if (!modal.classList.contains('hidden')) {
+                const etapa = !telaPago.classList.contains('hidden') ? 'pago' : !telaPix.classList.contains('hidden') ? 'pix' : 'dados';
+                rastro('checkout_fechado', { etapa: etapa, plano: planoAtual });
+            }
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             document.body.style.overflow = '';
@@ -1571,6 +1736,7 @@
             e.preventDefault();
             limparErros();
             carregando(true);
+            rastro('pix_solicitado', { plano: planoAtual, bumps: [...marcados].join(',') });
 
             try {
                 const resposta = await fetch(API + '/pix', {
@@ -1595,6 +1761,8 @@
                     const msg = (dados.erro || 'Não foi possível gerar o PIX.')
                               + (dados.ref ? ` (código ${dados.ref})` : '');
                     mostrarErros(dados.campos, dados.campos ? null : msg);
+                    // Só os nomes dos campos com erro, nunca o que foi digitado.
+                    rastro('pix_erro', { campos: Object.keys(dados.campos || {}).join(','), http: resposta.status });
                     return;
                 }
 
@@ -1603,6 +1771,7 @@
                     value: dados.valor, currency: 'BRL', content_name: dados.plano,
                     content_ids: dados.ids, content_type: 'product'
                 });
+                rastro('pix_gerado', { valor: dados.valor, pedido: dados.pedido, plano: planoAtual });
                 exibirPix(dados);
             } catch (_) {
                 mostrarErros(null, 'Falha de conexão. Verifique sua internet e tente de novo.');
@@ -1665,6 +1834,7 @@
                     clearTimeout(poll); clearInterval(contagem);
                     document.getElementById('pago-email').textContent = document.getElementById('cp-email').value;
                     mostrarEtapa('pago');
+                    rastro('pago', { valor: dados.valor });
                     if (window.lucide) lucide.createIcons();
                     if (window.fbq && !compraRegistrada[dados.transactionId]) {
                         compraRegistrada[dados.transactionId] = true;
@@ -1696,6 +1866,7 @@
                 campo.select(); document.execCommand('copy');
             }
             rotulo.textContent = 'Copiado!';
+            rastro('pix_copiado');
             setTimeout(() => { rotulo.textContent = 'Copiar código'; }, 2000);
         });
     })();

@@ -8,6 +8,9 @@ api/pix.js          cria a cobrança PIX (função do Vercel)
 api/status.js       consulta o status do pagamento
 api/webhook.js      recebe a notificação da ZuckPay
 api/saude.js        checagem da integração (abra /api/saude)
+api/rastro.js       coleta o comportamento dos visitantes (sem dados pessoais)
+api/painel.js       dados do painel, protegido por senha
+painel.html         painel: funil, gargalo, vídeo, ao vivo e linha do tempo
 api/_zuckpay.js     planos, bumps, validação e chamada autenticada à API
 assets/             vídeo da primeira dobra, slides e fotos dos carrosséis
 ```
@@ -85,6 +88,36 @@ um botão de play e só toca, já com som, quando o visitante clica. Não há
 barra de controles: tocar no vídeo pausa e o play volta a aparecer.
 Sem vídeo, a página mostra o mockup animado das aulas no lugar.
 
+## Painel de comportamento (`/painel.html`)
+
+Mostra onde cada visitante para e o que está fazendo agora:
+
+- **Funil de compra** — entrou → abriu o checkout → começou a preencher →
+  gerou o PIX → copiou o código → pagou, com o maior vazamento em laranja.
+- **Até onde rolaram** — quantos chegaram a ver cada seção da página.
+- **Vídeo** — quantos deram play e viram 25/50/75/100%.
+- **Ao vivo** — quem está na página agora, em que seção, de qual anúncio veio.
+- **Linha do tempo** — clique num visitante para ver tudo o que ele fez.
+
+Para ativar, no projeto do Vercel:
+
+1. *Storage > Create Database > Upstash for Redis* (plano grátis) e **Connect**
+   ao projeto `bioslide`. As variáveis `KV_REST_API_URL` e `KV_REST_API_TOKEN`
+   são criadas sozinhas.
+2. *Settings > Environment Variables*: crie `PAINEL_SENHA` com a senha do painel.
+3. **Redeploy**.
+
+Sem o banco conectado a página funciona normalmente — só não registra nada.
+Não são gravados nome, CPF, e-mail nem telefone: cada visitante é um código
+anônimo. As sessões ficam guardadas por 7 dias e o funil diário por 400 dias.
+Pagamentos confirmados pelo webhook entram no painel mesmo se o comprador
+fechou a página.
+
+Consumo: cada visitante gera um envio a cada ~10s enquanto a aba está aberta
+(~10 comandos no Redis por envio). O plano grátis do Upstash aguenta alguns
+milhares de visitas por mês; com tráfego maior, o plano pago custa centavos
+por dia.
+
 ## Se o PIX não gerar
 
 Abra `/api/saude`:
@@ -124,5 +157,7 @@ veja o console do navegador (F12) ao gerar o PIX. Os erros também aparecem em
    para entregar uma vez só.
 2. **Imagens dos carrosséis** — `assets/slides/*.jpg` e `assets/professores/*.jpg`
    foram recortadas de capturas de tela. Troque pelos originais, com o mesmo nome.
-3. **Depoimentos e avaliação** — mantenha só depoimentos reais, com autorização,
+3. **Aviso de privacidade** — a página registra o comportamento de forma
+   anônima; vale ter uma política de privacidade/cookies no rodapé (LGPD).
+4. **Depoimentos e avaliação** — mantenha só depoimentos reais, com autorização,
    e números reais de avaliações.

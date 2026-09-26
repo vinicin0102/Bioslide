@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Painel BIO SLIDES | Comportamento dos visitantes</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        bio:   { 900: '#0B3B2E', 800: '#115443', 700: '#17705A', 100: '#DDF4EA', 50: '#F2FBF7' },
+                        brand: { 500: '#F97316', 600: '#C2410C', 50: '#FFF7ED', 100: '#FFEDD5', 200: '#FED7AA' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .pulso { animation: pulso 1.6s ease-in-out infinite; }
+        @keyframes pulso { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+        .barra { transition: width .5s ease; }
+    </style>
+</head>
+<body class="font-sans bg-slate-100 text-gray-800 antialiased">
+
+    <!-- LOGIN -->
+    <div id="login" class="min-h-screen flex items-center justify-center p-4">
+        <form id="login-form" class="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 space-y-4">
+            <div>
+                <h1 class="text-xl font-extrabold text-bio-900">Painel BIO SLIDES</h1>
+                <p class="text-sm text-gray-500 mt-1">Digite a senha definida em <code>PAINEL_SENHA</code> no Vercel.</p>
+            </div>
+            <input id="login-senha" type="password" autocomplete="current-password" placeholder="Senha" required
+                   class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none">
+            <p id="login-erro" class="hidden text-sm text-brand-600"></p>
+            <button class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 rounded-xl transition">Entrar</button>
+        </form>
+    </div>
+
+    <!-- PAINEL -->
+    <div id="painel" class="hidden">
+        <header class="bg-bio-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <h1 class="text-lg font-extrabold">Painel BIO SLIDES</h1>
+                    <p class="text-xs text-white/70">Onde cada visitante para e o que está fazendo agora</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <select id="periodo" class="bg-bio-800 border border-white/20 rounded-lg px-3 py-2 text-sm font-semibold">
+                        <option value="0">Hoje</option>
+                        <option value="1">Ontem</option>
+                        <option value="7">Últimos 7 dias</option>
+                        <option value="30">Últimos 30 dias</option>
+                    </select>
+                    <span class="text-xs text-white/70 hidden sm:inline" id="atualizado"></span>
+                    <button id="sair" class="text-xs text-white/70 hover:text-white underline">sair</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+            <p id="aviso" class="hidden bg-brand-50 border border-brand-200 text-brand-600 rounded-xl p-4 text-sm font-semibold"></p>
+
+            <!-- KPIs -->
+            <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" id="kpis"></section>
+
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- FUNIL DE COMPRA -->
+                <section class="bg-white rounded-2xl shadow-sm p-5">
+                    <h2 class="font-extrabold text-bio-900">Funil de compra</h2>
+                    <p class="text-xs text-gray-500 mb-4">Quantos visitantes chegaram a cada etapa. O maior vazamento aparece em laranja.</p>
+                    <div id="funil-compra" class="space-y-3"></div>
+                </section>
+
+                <!-- ATÉ ONDE ROLARAM -->
+                <section class="bg-white rounded-2xl shadow-sm p-5">
+                    <h2 class="font-extrabold text-bio-900">Até onde rolaram a página</h2>
+                    <p class="text-xs text-gray-500 mb-4">Quantos visitantes chegaram a ver cada seção, na ordem da página.</p>
+                    <div id="funil-secoes" class="space-y-2"></div>
+                </section>
+            </div>
+
+            <!-- VÍDEO -->
+            <section class="bg-white rounded-2xl shadow-sm p-5">
+                <h2 class="font-extrabold text-bio-900">Vídeo da primeira dobra</h2>
+                <p class="text-xs text-gray-500 mb-4">De quem entrou na página: quantos deram play e até onde assistiram.</p>
+                <div id="funil-video" class="grid grid-cols-2 sm:grid-cols-5 gap-3"></div>
+            </section>
+
+            <!-- AO VIVO -->
+            <section class="bg-white rounded-2xl shadow-sm p-5">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-500 pulso"></span>
+                    <h2 class="font-extrabold text-bio-900">Ao vivo agora</h2>
+                    <span id="vivo-total" class="text-xs font-bold bg-green-100 text-green-700 rounded-full px-2 py-0.5"></span>
+                </div>
+                <p class="text-xs text-gray-500 mb-4">Atualiza a cada 5 segundos. Clique em um visitante para ver tudo o que ele fez.</p>
+                <div id="ao-vivo" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+            </section>
+
+            <!-- SESSÕES -->
+            <section class="bg-white rounded-2xl shadow-sm p-5">
+                <h2 class="font-extrabold text-bio-900">Visitantes do período</h2>
+                <p class="text-xs text-gray-500 mb-4">Onde cada um parou. Clique para ver a linha do tempo.</p>
+                <div class="overflow-x-auto -mx-5">
+                    <table class="w-full text-sm min-w-[760px]">
+                        <thead>
+                            <tr class="text-left text-xs uppercase tracking-wide text-gray-500 border-b">
+                                <th class="px-5 py-2">Entrou</th>
+                                <th class="px-2 py-2">Parou em</th>
+                                <th class="px-2 py-2">Rolou</th>
+                                <th class="px-2 py-2">Vídeo</th>
+                                <th class="px-2 py-2">Compra</th>
+                                <th class="px-2 py-2">Tempo</th>
+                                <th class="px-2 py-2">Origem</th>
+                                <th class="px-5 py-2">Aparelho</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sessoes"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- LINHA DO TEMPO DE UM VISITANTE -->
+    <div id="gaveta" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/40" data-fechar></div>
+        <aside class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col">
+            <div class="p-5 border-b flex items-start justify-between gap-3">
+                <div>
+                    <h3 class="font-extrabold text-bio-900">Linha do tempo</h3>
+                    <p id="gaveta-resumo" class="text-xs text-gray-500 mt-1"></p>
+                </div>
+                <button class="text-gray-400 hover:text-bio-900 text-2xl leading-none" data-fechar aria-label="Fechar">×</button>
+            </div>
+            <ol id="gaveta-eventos" class="flex-1 overflow-y-auto p-5 space-y-3 text-sm"></ol>
+        </aside>
+    </div>
+
+    <script>
+    (function () {
+        'use strict';
+
+        const SECOES = [
+            ['topo', 'Topo (vídeo e oferta)'], ['slides', 'Carrossel de slides'], ['dor', 'Sem x Com BIO SLIDES'],
+            ['conteudo', 'O que tem dentro'], ['estrutura', 'Como é cada aula'], ['publico', 'Para quem é'],
+            ['biobox', 'BIOBOX Professor'], ['depoimentos', 'Depoimentos'], ['planos', 'Planos e preços'],
+            ['faq', 'Perguntas frequentes'], ['rodape', 'Final da página']
+        ];
+        const NOME_SECAO = Object.fromEntries(SECOES);
+        const COMPRA = [
+            ['entrou', 'Entrou na página'], ['checkout', 'Abriu o checkout'], ['dados', 'Começou a preencher'],
+            ['pix', 'Gerou o PIX'], ['copiou', 'Copiou o código PIX'], ['pago', 'Pagou']
+        ];
+        const ETAPA_COMPRA = ['Só olhou', 'Abriu o checkout', 'Preencheu dados', 'Gerou PIX', 'Copiou PIX', 'Pagou'];
+
+        let senha = '';
+        try { senha = sessionStorage.getItem('painel_senha') || ''; } catch (_) {}
+        let dados = null;
+        let timerVivo = null, timerTudo = null;
+
+        /* ---------- utilitários ---------- */
+        const $ = id => document.getElementById(id);
+        function esc(v) {
+            return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+        const pct = (n, total) => total ? Math.round((n / total) * 100) : 0;
+        const brl = v => Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        function duracao(ms) {
+            const s = Math.max(0, Math.round(ms / 1000));
+            if (s < 60) return s + 's';
+            const m = Math.floor(s / 60);
+            return m < 60 ? `${m}min ${s % 60}s` : `${Math.floor(m / 60)}h ${m % 60}min`;
+        }
+        function hora(ms) {
+            return new Date(ms).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+        }
+        function dataBR(ms) {
+            return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(new Date(ms));
+        }
+        function origem(s) {
+            const partes = [s.origem, s.campanha].filter(Boolean);
+            return partes.join(' · ') + (s.anuncio ? ` · ${s.anuncio}` : '');
+        }
+
+        async function api(params) {
+            const r = await fetch('/api/painel?' + new URLSearchParams(params), { headers: { Authorization: 'Bearer ' + senha } });
+            const corpo = await r.json().catch(() => ({}));
+            if (r.status === 401) { sair('Senha incorreta.'); throw new Error('401'); }
+            if (!r.ok) throw new Error(corpo.erro || 'Erro ' + r.status);
+            return corpo;
+        }
+
+        /* ---------- login ---------- */
+        $('login-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            senha = $('login-senha').value;
+            try { sessionStorage.setItem('painel_senha', senha); } catch (_) {}
+            iniciar();
+        });
+        $('sair').addEventListener('click', () => sair(''));
+
+        function sair(msg) {
+            senha = '';
+            try { sessionStorage.removeItem('painel_senha'); } catch (_) {}
+            clearInterval(timerVivo); clearInterval(timerTudo);
+            $('painel').classList.add('hidden');
+            $('login').classList.remove('hidden');
+            $('login-erro').textContent = msg;
+            $('login-erro').classList.toggle('hidden', !msg);
+        }
+
+        function periodo() {
+            const dias = Number($('periodo').value);
+            const agora = Date.now();
+            if (dias === 1) { const ontem = dataBR(agora - 86400000); return { de: ontem, ate: ontem }; }
+            return { de: dataBR(agora - Math.max(0, dias - 1) * 86400000), ate: dataBR(agora) };
+        }
+
+        async function carregar() {
+            try {
+                dados = await api(periodo());
+                $('aviso').classList.add('hidden');
+                $('login').classList.add('hidden');
+                $('painel').classList.remove('hidden');
+                desenhar();
+                $('atualizado').textContent = 'Atualizado às ' + new Date().toLocaleTimeString('pt-BR');
+            } catch (erro) {
+                if (erro.message === '401') return;
+                $('login').classList.add('hidden');
+                $('painel').classList.remove('hidden');
+                $('aviso').textContent = erro.message;
+                $('aviso').classList.remove('hidden');
+            }
+        }
+
+        function iniciar() {
+            clearInterval(timerVivo); clearInterval(timerTudo);
+            carregar();
+            // "Ao vivo" a cada 5s (a mesma chamada traz tudo; é leve).
+            timerVivo = setInterval(() => { if (document.visibilityState === 'visible') carregar(); }, 5000);
+        }
+        $('periodo').addEventListener('change', carregar);
+
+        /* ---------- desenho ---------- */
+        function desenhar() {
+            const f = dados.funil || {};
+            const entrou = f.entrou || 0;
+
+            // KPIs
+            const kpis = [
+                ['Visitantes', entrou, ''],
+                ['Ao vivo agora', dados.aoVivo.length, 'text-green-600'],
+                ['Abriram o checkout', f.checkout || 0, '', pct(f.checkout, entrou) + '% dos visitantes'],
+                ['PIX gerados', f.pix || 0, '', pct(f.pix, f.checkout) + '% de quem abriu o checkout'],
+                ['Vendas', f.pago || 0, 'text-bio-700', pct(f.pago, f.pix) + '% dos PIX gerados'],
+                ['Conversão', pct(f.pago, entrou) + '%', 'text-brand-600', 'vendas ÷ visitantes']
+            ];
+            $('kpis').innerHTML = kpis.map(([rotulo, valor, cor, sub]) => `
+                <div class="bg-white rounded-2xl shadow-sm p-4">
+                    <p class="text-xs font-semibold text-gray-500">${esc(rotulo)}</p>
+                    <p class="text-2xl font-black ${cor || 'text-bio-900'}">${esc(valor)}</p>
+                    ${sub ? `<p class="text-[11px] text-gray-400 mt-0.5">${esc(sub)}</p>` : ''}
+                </div>`).join('');
+
+            // Funil de compra + gargalo (maior perda entre etapas seguidas)
+            let gargalo = -1, maiorPerda = 0;
+            COMPRA.forEach(([chave], i) => {
+                if (i === 0) return;
+                const anterior = f[COMPRA[i - 1][0]] || 0;
+                const perda = anterior - (f[chave] || 0);
+                if (anterior >= 3 && perda / anterior > maiorPerda) { maiorPerda = perda / anterior; gargalo = i; }
+            });
+            $('funil-compra').innerHTML = COMPRA.map(([chave, rotulo], i) => {
+                const n = f[chave] || 0;
+                const anterior = i ? (f[COMPRA[i - 1][0]] || 0) : n;
+                const perda = i && anterior ? 100 - pct(n, anterior) : 0;
+                const ehGargalo = i === gargalo;
+                return `
+                    <div>
+                        <div class="flex items-baseline justify-between text-sm">
+                            <span class="font-semibold ${ehGargalo ? 'text-brand-600' : 'text-bio-900'}">${esc(rotulo)}${ehGargalo ? ' <span class="ml-1 text-[10px] font-black uppercase bg-brand-500 text-white rounded-full px-2 py-0.5">gargalo</span>' : ''}</span>
+                            <span class="text-gray-600"><strong class="text-bio-900">${n}</strong> · ${pct(n, entrou)}%${i ? ` <span class="${ehGargalo ? 'text-brand-600 font-bold' : 'text-gray-400'}">(−${perda}% da etapa anterior)</span>` : ''}</span>
+                        </div>
+                        <div class="h-3 bg-slate-100 rounded-full mt-1 overflow-hidden">
+                            <div class="barra h-full rounded-full ${ehGargalo ? 'bg-brand-500' : 'bg-bio-700'}" style="width:${pct(n, entrou)}%"></div>
+                        </div>
+                    </div>`;
+            }).join('');
+
+            // Seções
+            let maiorQueda = -1, quedaMax = 0;
+            SECOES.forEach(([chave], i) => {
+                if (!i) return;
+                const ant = f['s_' + SECOES[i - 1][0]] || 0;
+                const q = ant - (f['s_' + chave] || 0);
+                if (ant >= 3 && q / ant > quedaMax) { quedaMax = q / ant; maiorQueda = i; }
+            });
+            $('funil-secoes').innerHTML = SECOES.map(([chave, rotulo], i) => {
+                const n = f['s_' + chave] || 0;
+                const destaque = i === maiorQueda;
+                return `
+                    <div class="grid grid-cols-[150px_1fr_70px] sm:grid-cols-[190px_1fr_80px] items-center gap-3 text-sm">
+                        <span class="truncate ${destaque ? 'font-bold text-brand-600' : 'text-gray-700'}" title="${esc(rotulo)}">${esc(rotulo)}</span>
+                        <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="barra h-full rounded-full ${destaque ? 'bg-brand-500' : 'bg-bio-700'}" style="width:${pct(n, entrou)}%"></div>
+                        </div>
+                        <span class="text-right text-gray-600"><strong class="text-bio-900">${n}</strong> · ${pct(n, entrou)}%</span>
+                    </div>`;
+            }).join('') + (maiorQueda > 0 ? `<p class="text-xs text-brand-600 font-semibold pt-2">Maior abandono: entre “${esc(SECOES[maiorQueda - 1][1])}” e “${esc(SECOES[maiorQueda][1])}” (−${Math.round(quedaMax * 100)}%).</p>` : '');
+
+            // Vídeo
+            const video = [['video_play', 'Deram play'], ['video_25', 'Viram 25%'], ['video_50', 'Viram 50%'], ['video_75', 'Viram 75%'], ['video_100', 'Viram até o fim']];
+            $('funil-video').innerHTML = video.map(([chave, rotulo]) => `
+                <div class="rounded-xl bg-bio-50 border border-bio-100 p-3 text-center">
+                    <p class="text-2xl font-black text-bio-900">${pct(f[chave], entrou)}%</p>
+                    <p class="text-xs font-semibold text-gray-600">${esc(rotulo)}</p>
+                    <p class="text-[11px] text-gray-400">${f[chave] || 0} pessoas</p>
+                </div>`).join('');
+
+            // Ao vivo
+            $('vivo-total').textContent = dados.aoVivo.length + (dados.aoVivo.length === 1 ? ' pessoa' : ' pessoas');
+            $('ao-vivo').innerHTML = dados.aoVivo.length ? dados.aoVivo.map(s => `
+                <button data-sessao="${esc(s.sid)}" class="text-left rounded-xl border ${s.compra >= 1 ? 'border-brand-200 bg-brand-50' : 'border-slate-200 bg-slate-50'} p-3 hover:shadow-md transition">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="font-bold text-bio-900 text-sm">📍 ${esc(NOME_SECAO[s.secao] || 'Carregando…')}</span>
+                        <span class="text-[11px] text-gray-500">${duracao(dados.agora - s.inicio)} na página</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">${esc(ETAPA_COMPRA[Math.max(0, s.compra)])}${s.plano ? ' · ' + esc(s.plano) : ''} · rolou ${s.rolagem}% · vídeo ${s.viuVideo ? s.video + '%' : 'não'}</p>
+                    <p class="text-[11px] text-gray-400 mt-1 truncate">${esc(s.dispositivo)}${s.cidade ? ' · ' + esc(s.cidade) + (s.uf ? '/' + esc(s.uf) : '') : ''} · ${esc(origem(s))}</p>
+                </button>`).join('') : '<p class="text-sm text-gray-400">Ninguém na página neste momento.</p>';
+
+            // Sessões do período
+            $('sessoes').innerHTML = dados.recentes.length ? dados.recentes.map(s => {
+                const status = s.pago ? '<span class="text-green-700 font-bold">✓ Pagou</span>'
+                    : s.compra >= 1 ? `<span class="text-brand-600 font-semibold">${esc(ETAPA_COMPRA[s.compra])}</span>`
+                    : '<span class="text-gray-400">Só olhou</span>';
+                return `
+                    <tr data-sessao="${esc(s.sid)}" class="border-b border-slate-100 hover:bg-slate-50 cursor-pointer">
+                        <td class="px-5 py-2 whitespace-nowrap text-gray-600">${hora(s.inicio)}</td>
+                        <td class="px-2 py-2 font-semibold text-bio-900">${esc(NOME_SECAO[s.secao] || '—')}</td>
+                        <td class="px-2 py-2">${s.rolagem}%</td>
+                        <td class="px-2 py-2">${s.viuVideo ? s.video + '%' : '—'}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${status}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${duracao(s.ultimo - s.inicio)}</td>
+                        <td class="px-2 py-2 max-w-[200px] truncate text-gray-600" title="${esc(origem(s))}">${esc(origem(s))}</td>
+                        <td class="px-5 py-2 text-gray-600 whitespace-nowrap">${esc(s.dispositivo)}${s.cidade ? ' · ' + esc(s.cidade) : ''}</td>
+                    </tr>`;
+            }).join('') : '<tr><td colspan="8" class="px-5 py-6 text-center text-gray-400">Nenhum visitante neste período.</td></tr>';
+        }
+
+        /* ---------- linha do tempo ---------- */
+        function descrever(e) {
+            const d = e.d || {};
+            switch (e.tipo) {
+                case 'page_view':       return '🟢 Entrou na página';
+                case 'secao':           return '📍 Chegou em: ' + (NOME_SECAO[d.nome] || d.nome);
+                case 'ping':            return null;
+                case 'saiu':            return '🚪 Saiu da aba / minimizou';
+                case 'voltou':          return '↩️ Voltou para a página';
+                case 'clique':          return `👆 Clicou em “${d.botao || 'botão'}”`;
+                case 'faq':             return `❓ Abriu a pergunta “${d.pergunta || ''}”`;
+                case 'video_play':      return `▶️ Deu play no vídeo (em ${d.seg || 0}s)`;
+                case 'video_pause':     return `⏸️ Pausou o vídeo em ${d.seg || 0}s`;
+                case 'video_progresso': return `🎬 Assistiu ${d.pct}% do vídeo`;
+                case 'video_fim':       return '🏁 Terminou o vídeo';
+                case 'checkout_aberto': return `🛒 Abriu o checkout (${d.plano || ''})`;
+                case 'checkout_fechado':return `❌ Fechou o checkout na etapa: ${d.etapa || ''}`;
+                case 'upgrade':         return '💎 Trocou para o BIOBOX';
+                case 'bump':            return `${d.marcado ? '➕ Marcou' : '➖ Desmarcou'} o bump ${d.id || ''}`;
+                case 'form_inicio':     return '✍️ Começou a preencher os dados';
+                case 'pix_solicitado':  return '⏳ Clicou em Gerar PIX';
+                case 'pix_erro':        return `⚠️ Erro ao gerar PIX${d.campos ? ' (campos: ' + d.campos + ')' : ''}`;
+                case 'pix_gerado':      return `💠 PIX gerado: ${brl(d.valor)}`;
+                case 'pix_copiado':     return '📋 Copiou o código PIX';
+                case 'pago':            return `✅ Pagou${d.valor ? ' ' + brl(d.valor) : ''}${d.confirmado ? ' (confirmado pela ZuckPay)' : ''}`;
+                default:                return e.tipo;
+            }
+        }
+
+        async function abrirSessao(sid) {
+            $('gaveta').classList.remove('hidden');
+            $('gaveta-eventos').innerHTML = '<li class="text-gray-400">Carregando…</li>';
+            try {
+                const r = await api({ sessao: sid });
+                const s = r.sessao;
+                $('gaveta-resumo').textContent = [hora(s.inicio), s.dispositivo, s.cidade, origem(s)].filter(Boolean).join(' · ');
+                const inicio = r.eventos.length ? r.eventos[0].t : s.inicio;
+                $('gaveta-eventos').innerHTML = r.eventos.map(e => {
+                    const texto = descrever(e);
+                    if (!texto) return '';
+                    return `
+                        <li class="flex gap-3">
+                            <span class="w-14 flex-shrink-0 text-right font-mono text-xs text-gray-400 pt-0.5">+${duracao(e.t - inicio)}</span>
+                            <span class="text-gray-800">${esc(texto)}${typeof e.d?.rolagem === 'number' ? ` <span class="text-[11px] text-gray-400">· rolou ${e.d.rolagem}%</span>` : ''}</span>
+                        </li>`;
+                }).join('') || '<li class="text-gray-400">Sem eventos.</li>';
+            } catch (erro) {
+                $('gaveta-eventos').innerHTML = `<li class="text-brand-600">${esc(erro.message)}</li>`;
+            }
+        }
+
+        document.addEventListener('click', e => {
+            const alvo = e.target.closest('[data-sessao]');
+            if (alvo) abrirSessao(alvo.getAttribute('data-sessao'));
+            if (e.target.closest('[data-fechar]')) $('gaveta').classList.add('hidden');
+        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') $('gaveta').classList.add('hidden'); });
+
+        if (senha) iniciar();
+    })();
+    </script>
+</body>
+</html>

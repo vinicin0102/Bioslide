@@ -7,6 +7,30 @@
  *    nunca é a fonte da verdade.
  */
 import { config, json, registrarErro, chamarZuckpay, assinaturaWebhookValida, itensDoPedido, ID_TRANSACAO } from './_zuckpay.js';
+import { redisConfigurado, pipeline, dataBR, PREFIXO } from './_redis.js';
+
+/**
+ * Marca a venda na sessão do painel (via pedido -> sessão gravado quando o
+ * PIX foi gerado), mesmo que o comprador tenha fechado a página.
+ */
+async function marcarPagoNoPainel(externalId, valor) {
+    const m = /^BS-[a-z]+-[a-z0-9]+-(.+)$/.exec(externalId);
+    if (!m || !redisConfigurado()) return;
+    try {
+        const [sid] = await pipeline([['GET', PREFIXO + 'p:' + m[1]]]);
+        if (!sid) return;
+        const s = PREFIXO + 's:' + sid;
+        const agora = Date.now();
+        const [novo] = await pipeline([
+            ['HSETNX', s, 'r_pago', 1],
+            ['HSET', s, 'pago', 1, 'compra', 5],
+            ['LPUSH', PREFIXO + 'e:' + sid, JSON.stringify({ t: agora, tipo: 'pago', d: { confirmado: 'webhook', valor } })],
+        ]);
+        if (Number(novo) === 1) await pipeline([['HINCRBY', PREFIXO + 'f:' + dataBR(agora), 'pago', 1]]);
+    } catch (erro) {
+        registrarErro('webhook', 'painel: ' + erro.message);
+    }
+}
 
 const processadas = new Set(); // melhor esforço, por instância
 
@@ -69,6 +93,8 @@ export async function POST(request) {
             valor: resposta.amount ?? transacao.amount ?? null,
             confirmado_em: resposta.confirmed_date ?? transacao.confirmed_date ?? null,
         }));
+
+        await marcarPagoNoPainel(externalId, Number(resposta.amount ?? transacao.amount ?? 0) || 0);
 
         /*
          * TODO — entrega do produto (e-mail com o link / área de membros).
