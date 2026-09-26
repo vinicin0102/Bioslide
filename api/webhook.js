@@ -7,26 +7,25 @@
  *    nunca é a fonte da verdade.
  */
 import { config, json, registrarErro, chamarZuckpay, assinaturaWebhookValida, itensDoPedido, ID_TRANSACAO } from './_zuckpay.js';
-import { redisConfigurado, pipeline, dataBR, PREFIXO } from './_redis.js';
+import { bancoConfigurado, banco, dataBR, registrarEtapas } from './_banco.js';
 
 /**
- * Marca a venda na sessão do painel (via pedido -> sessão gravado quando o
- * PIX foi gerado), mesmo que o comprador tenha fechado a página.
+ * Marca a venda na sessão do painel (pelo pedido gravado quando o PIX foi
+ * gerado), mesmo que o comprador tenha fechado a página.
  */
 async function marcarPagoNoPainel(externalId, valor) {
     const m = /^BS-[a-z]+-[a-z0-9]+-(.+)$/.exec(externalId);
-    if (!m || !redisConfigurado()) return;
+    if (!m || !bancoConfigurado()) return;
     try {
-        const [sid] = await pipeline([['GET', PREFIXO + 'p:' + m[1]]]);
-        if (!sid) return;
-        const s = PREFIXO + 's:' + sid;
+        const db = await banco();
         const agora = Date.now();
-        const [novo] = await pipeline([
-            ['HSETNX', s, 'r_pago', 1],
-            ['HSET', s, 'pago', 1, 'compra', 5],
-            ['LPUSH', PREFIXO + 'e:' + sid, JSON.stringify({ t: agora, tipo: 'pago', d: { confirmado: 'webhook', valor } })],
-        ]);
-        if (Number(novo) === 1) await pipeline([['HINCRBY', PREFIXO + 'f:' + dataBR(agora), 'pago', 1]]);
+        await db.begin(async tx => {
+            const [sessao] = await tx`SELECT sid FROM bioslide.sessoes WHERE pedido = ${m[1]} LIMIT 1`;
+            if (!sessao) return;
+            await tx`UPDATE bioslide.sessoes SET pago = true, compra = 5 WHERE sid = ${sessao.sid}`;
+            await tx`INSERT INTO bioslide.eventos (sid, t, tipo, d) VALUES (${sessao.sid}, ${agora}, 'pago', ${tx.json({ confirmado: 'webhook', valor })})`;
+            await registrarEtapas(tx, sessao.sid, ['pago'], dataBR(agora));
+        });
     } catch (erro) {
         registrarErro('webhook', 'painel: ' + erro.message);
     }

@@ -8,6 +8,7 @@ api/pix.js          cria a cobrança PIX (função do Vercel)
 api/status.js       consulta o status do pagamento
 api/webhook.js      recebe a notificação da ZuckPay
 api/saude.js        checagem da integração (abra /api/saude)
+api/_banco.js       conexão com o Postgres (Supabase) e criação das tabelas
 api/rastro.js       coleta o comportamento dos visitantes (sem dados pessoais)
 api/painel.js       dados do painel, protegido por senha
 painel.html         painel: funil, gargalo, vídeo, ao vivo e linha do tempo
@@ -101,22 +102,24 @@ Mostra onde cada visitante para e o que está fazendo agora:
 
 Para ativar, no projeto do Vercel:
 
-1. *Storage > Create Database > Upstash for Redis* (plano grátis) e **Connect**
-   ao projeto `bioslide`. As variáveis `KV_REST_API_URL` e `KV_REST_API_TOKEN`
-   são criadas sozinhas.
-2. *Settings > Environment Variables*: crie `PAINEL_SENHA` com a senha do painel.
+1. *Storage > Supabase* conectado ao projeto `bioslide` (cria a `POSTGRES_URL`).
+2. *Settings > Environment Variables*: `PAINEL_SENHA` com a senha do painel.
 3. **Redeploy**.
+
+As tabelas são criadas sozinhas no primeiro acesso, no schema `bioslide`
+(`sessoes`, `eventos`, `funil`). Esse schema não é exposto pela API pública do
+Supabase e as tabelas têm RLS ligado: só as funções do site, conectadas com a
+`POSTGRES_URL`, leem e gravam.
 
 Sem o banco conectado a página funciona normalmente — só não registra nada.
 Não são gravados nome, CPF, e-mail nem telefone: cada visitante é um código
-anônimo. As sessões ficam guardadas por 7 dias e o funil diário por 400 dias.
+anônimo. Sessões e eventos são apagados depois de 7 dias; o funil diário fica.
 Pagamentos confirmados pelo webhook entram no painel mesmo se o comprador
 fechou a página.
 
-Consumo: cada visitante gera um envio a cada ~10s enquanto a aba está aberta
-(~10 comandos no Redis por envio). O plano grátis do Upstash aguenta alguns
-milhares de visitas por mês; com tráfego maior, o plano pago custa centavos
-por dia.
+Consumo: cada visitante gera um envio a cada ~10s enquanto a aba está aberta.
+Como eventos com mais de 7 dias são apagados, o banco fica pequeno — cabe com
+folga no plano grátis do Supabase (500 MB).
 
 ## Se o PIX não gerar
 
@@ -153,7 +156,7 @@ veja o console do navegador (F12) ao gerar o PIX. Os erros também aparecem em
 
 1. **Entrega do produto** — `api/webhook.js` tem um `TODO` onde entra o envio
    do e-mail / liberação do acesso. Como as funções não guardam estado entre
-   instâncias, grave o `transactionId` num banco (ex.: Vercel KV / Postgres)
+   instâncias, grave o `transactionId` no banco (o Postgres já está conectado)
    para entregar uma vez só.
 2. **Imagens dos carrosséis** — `assets/slides/*.jpg` e `assets/professores/*.jpg`
    foram recortadas de capturas de tela. Troque pelos originais, com o mesmo nome.
