@@ -75,3 +75,29 @@ export async function GET(request) {
         return json(502, { erro: 'Não foi possível ler os dados agora.' });
     }
 }
+
+/**
+ * Zera os dados do painel (visitas, eventos, funil e gravações).
+ * POST /api/painel  { acao: "zerar", confirmacao: "ZERAR" }  — com a senha do painel.
+ */
+export async function POST(request) {
+    if (!process.env.PAINEL_SENHA) return json(503, { erro: 'Defina a variável PAINEL_SENHA no Vercel e faça Redeploy.' });
+    if (!senhaConfere(request)) return json(401, { erro: 'Senha incorreta.' });
+    if (!bancoConfigurado()) return json(503, { erro: 'Banco não conectado.' });
+
+    let corpo = {};
+    try { corpo = await request.json(); } catch { /* tratado abaixo */ }
+    if (corpo?.acao !== 'zerar' || corpo?.confirmacao !== 'ZERAR') {
+        return json(400, { erro: 'Confirmação inválida.' });
+    }
+
+    try {
+        const db = await banco();
+        await db`TRUNCATE bioslide.gravacoes, bioslide.eventos, bioslide.sessoes, bioslide.funil`;
+        console.log('[painel] dados zerados em', new Date().toISOString());
+        return json(200, { ok: true });
+    } catch (erro) {
+        console.error('[painel]', erro.message);
+        return json(502, { erro: 'Não foi possível zerar os dados agora.' });
+    }
+}

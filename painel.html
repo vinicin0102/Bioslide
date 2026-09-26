@@ -61,6 +61,7 @@
                         <option value="30">Últimos 30 dias</option>
                     </select>
                     <span class="text-xs text-white/70 hidden sm:inline" id="atualizado"></span>
+                    <button id="zerar" class="text-xs font-bold text-white/80 hover:text-white border border-white/30 hover:border-white rounded-lg px-3 py-2">Zerar dados</button>
                     <button id="sair" class="text-xs text-white/70 hover:text-white underline">sair</button>
                 </div>
             </div>
@@ -146,6 +147,21 @@
         </aside>
     </div>
 
+    <!-- CONFIRMAÇÃO PARA ZERAR -->
+    <div id="zerar-modal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/50 p-4">
+        <form id="zerar-form" class="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 space-y-3">
+            <h3 class="text-lg font-extrabold text-bio-900">Zerar todos os dados?</h3>
+            <p class="text-sm text-gray-600">Apaga <strong>todas</strong> as visitas, o funil, as linhas do tempo e as gravações de tela. O painel recomeça do zero a partir de agora. <strong>Não dá para desfazer.</strong></p>
+            <label for="zerar-texto" class="block text-sm font-semibold text-bio-900">Digite <code class="bg-slate-100 px-1 rounded">ZERAR</code> para confirmar</label>
+            <input id="zerar-texto" autocomplete="off" class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none">
+            <p id="zerar-erro" class="hidden text-sm text-brand-600"></p>
+            <div class="flex gap-2 pt-1">
+                <button type="button" id="zerar-cancelar" class="flex-1 rounded-xl border border-gray-300 py-3 font-semibold text-gray-700 hover:bg-slate-50">Cancelar</button>
+                <button id="zerar-confirmar" disabled class="flex-1 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-40 disabled:cursor-not-allowed py-3 font-bold text-white">Zerar agora</button>
+            </div>
+        </form>
+    </div>
+
     <!-- PLAYER DA GRAVAÇÃO -->
     <div id="player" class="fixed inset-0 z-[60] hidden bg-black/85 flex-col items-center justify-center p-3">
         <div class="w-full max-w-[1100px] flex items-center justify-between gap-3 text-white mb-2">
@@ -224,6 +240,46 @@
             iniciar();
         });
         $('sair').addEventListener('click', () => sair(''));
+
+        /* ---------- zerar dados ---------- */
+        function fecharZerar() {
+            $('zerar-modal').classList.add('hidden');
+            $('zerar-modal').classList.remove('flex');
+        }
+        $('zerar').addEventListener('click', () => {
+            $('zerar-texto').value = '';
+            $('zerar-confirmar').disabled = true;
+            $('zerar-erro').classList.add('hidden');
+            $('zerar-modal').classList.remove('hidden');
+            $('zerar-modal').classList.add('flex');
+            $('zerar-texto').focus();
+        });
+        $('zerar-cancelar').addEventListener('click', fecharZerar);
+        $('zerar-texto').addEventListener('input', e => {
+            $('zerar-confirmar').disabled = e.target.value.trim() !== 'ZERAR';
+        });
+        $('zerar-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            if ($('zerar-texto').value.trim() !== 'ZERAR') return;
+            $('zerar-confirmar').disabled = true;
+            $('zerar-confirmar').textContent = 'Zerando…';
+            try {
+                const r = await fetch('/api/painel', {
+                    method: 'POST',
+                    headers: { Authorization: 'Bearer ' + senha, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ acao: 'zerar', confirmacao: 'ZERAR' })
+                });
+                const corpo = await r.json().catch(() => ({}));
+                if (!r.ok) throw new Error(corpo.erro || 'Erro ' + r.status);
+                fecharZerar();
+                await carregar();
+            } catch (erro) {
+                $('zerar-erro').textContent = erro.message;
+                $('zerar-erro').classList.remove('hidden');
+            } finally {
+                $('zerar-confirmar').textContent = 'Zerar agora';
+            }
+        });
 
         function sair(msg) {
             senha = '';
