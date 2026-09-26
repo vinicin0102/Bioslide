@@ -6,6 +6,7 @@
  * não cria cobrança.
  */
 import { config, json, chamarZuckpay } from './_zuckpay.js';
+import { bancoConfigurado, banco } from './_banco.js';
 
 let ultima = null;
 
@@ -36,6 +37,20 @@ export async function GET() {
             `resposta inesperada (HTTP ${status})`;
     } else {
         dados.diagnostico = 'Credenciais não encontradas nas variáveis de ambiente';
+    }
+
+    // Banco do painel: conecta, cria as tabelas se faltarem e conta as visitas de hoje.
+    dados.painel_senha = process.env.PAINEL_SENHA ? 'definida' : 'FALTANDO';
+    if (!bancoConfigurado()) {
+        dados.banco = 'FALTANDO — conecte o Supabase ao projeto (cria a POSTGRES_URL)';
+    } else {
+        try {
+            const db = await banco();
+            const [linha] = await db`SELECT COUNT(*)::int AS n FROM bioslide.sessoes WHERE ultimo > ${Date.now() - 86400000}`;
+            dados.banco = `OK — ${linha.n} visitas registradas nas últimas 24h`;
+        } catch (erro) {
+            dados.banco = 'ERRO — ' + String(erro.message).slice(0, 160);
+        }
     }
 
     ultima = { em: Date.now(), dados };
